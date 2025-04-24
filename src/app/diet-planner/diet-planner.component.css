@@ -1,0 +1,38 @@
+h2 {
+  color: #292929;
+}
+
+.action-section {
+  display: flex;
+  justify-content: space-around;
+}
+
+.outer-bar {
+  width: 100%;
+  background-color: #dfdfdf;
+  border-radius: 10px;
+}
+
+.inner-bar {
+  width: 40%;
+  color: transparent;
+  background-color: teal;
+  border-radius: 10px;
+}
+
+.macros {
+  display: flex;
+  justify-content: space-between;
+}
+
+.meal {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+}
