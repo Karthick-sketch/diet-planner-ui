@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DietPlannerComponent } from './diet-planner/diet-planner.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [DietPlannerComponent],
+  imports: [RouterOutlet],
 })
 export class AppComponent {}
