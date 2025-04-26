@@ -1,1 +1,67 @@
-<p>diet-plan-form works!</p>
+<section>
+  <div>
+    <label for="age">Age</label>
+    <input type="number" name="age" [(ngModel)]="dietPlan.age" />
+  </div>
+  <div>
+    <label for="gender">Gender</label>
+    <select name="gender" [(ngModel)]="dietPlan.gender">
+      @for (gender of genders; track $index) {
+      <option [value]="gender.value">{{ gender.key }}</option>
+      }
+    </select>
+  </div>
+  <div>
+    <label for="height">Height</label>
+    <input type="number" name="height" [(ngModel)]="dietPlan.height" />
+  </div>
+  <div>
+    <label for="weight">Weight</label>
+    <input type="number" name="weight" [(ngModel)]="dietPlan.weight" />
+  </div>
+  <div>
+    <label for="goal">Goal</label>
+    <select name="goal" [(ngModel)]="dietPlan.goal">
+      @for (goal of goals; track $index) {
+      <option [value]="goal.value">{{ goal.key }}</option>
+      }
+    </select>
+  </div>
+  <div>
+    <label for="finalGoal">Final Goal</label>
+    <input type="number" name="finalGoal" [(ngModel)]="dietPlan.finalGoal" />
+  </div>
+  <div>
+    <label for="timePeriod">Time Period</label>
+    <input type="number" name="timePeriod" [(ngModel)]="timePeriod.duration" />
+    <select name="timePeriod" [(ngModel)]="timePeriod.timestamp">
+      <option value="days">Days</option>
+      <option value="weeks">Weeks</option>
+      <option value="Months">Months</option>
+    </select>
+  </div>
+  <div>
+    <label for="activity">Activity</label>
+    <select name="activity" [(ngModel)]="dietPlan.activity">
+      @for (activity of activities; track $index) {
+      <option [value]="activity.value">{{ activity.key }}</option>
+      }
+    </select>
+  </div>
+  <div>
+    <label for="foodType">Food Type</label>
+    <select name="foodType" [(ngModel)]="dietPlan.foodType">
+      @for (foodType of foodTypes; track $index) {
+      <option [value]="foodType.value">{{ foodType.key }}</option>
+      }
+    </select>
+  </div>
+  <div>
+    <label for="foodFilters">Food Filters</label>
+    <input type="text" name="foodFilters" [(ngModel)]="dietPlan.foodFilters" />
+  </div>
+  <div>
+    <button (click)="cancel()">Cancel</button>
+    <button (click)="addDietPlan()">Add</button>
+  </div>
+</section>
