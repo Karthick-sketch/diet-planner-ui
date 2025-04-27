@@ -1,4 +1,4 @@
-export class TimePeriodModel {
+export class TimePeriodDTO {
   duration!: number;
   timestamp!: string;
 }
