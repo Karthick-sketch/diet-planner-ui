@@ -1,0 +1,63 @@
+header {
+  background-color: teal;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.diet-plan {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.diet-plan:last-child {
+  border-bottom: none;
+}
+
+.plan-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.plan-description {
+  font-size: 1rem;
+  color: #666;
+}
+
+.plan-calories {
+  font-size: 0.9rem;
+  color: teal;
+  font-weight: 500;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #1c5252;
+}

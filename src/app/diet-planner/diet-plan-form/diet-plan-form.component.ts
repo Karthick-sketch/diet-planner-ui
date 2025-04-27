@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DietPlanModel } from '../model/diet-plan.model';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DietPlanFormService } from './diet-plan-form-service';
 import { DropdownModel } from '../../shared/model/dropdown.model';
+import { TimePeriodDTO } from '../dto/time-period.dto';
+import { DietPlanDTO } from '../dto/diet-plan.dto';
 import { Gender } from '../enum/gender.enum';
 import { Goal } from '../enum/goal.enum';
 import { Activity } from '../enum/activity.enum';
 import { FoodType } from '../enum/food-type.enum';
-import { TimePeriodModel } from '../model/time-period.model';
+import { DietPlannerService } from '../diet-planner-service';
 
 @Component({
   selector: 'app-diet-plan-form',
@@ -17,8 +17,10 @@ import { TimePeriodModel } from '../model/time-period.model';
   imports: [FormsModule],
 })
 export class DietPlanFormComponent implements OnInit {
-  dietPlan!: DietPlanModel;
-  timePeriod!: TimePeriodModel;
+  dietPlanDTO!: DietPlanDTO;
+  timePeriodDTO!: TimePeriodDTO;
+
+  foodFilters = '';
 
   genders = [
     new DropdownModel('Male', Gender.MALE),
@@ -43,13 +45,13 @@ export class DietPlanFormComponent implements OnInit {
   ];
 
   constructor(
-    private dietPlanFormService: DietPlanFormService,
-    private router: Router
+    private router: Router,
+    private dietPlannerService: DietPlannerService
   ) {}
 
   ngOnInit() {
-    this.dietPlan = new DietPlanModel();
-    this.timePeriod = new TimePeriodModel();
+    this.dietPlanDTO = new DietPlanDTO();
+    this.timePeriodDTO = new TimePeriodDTO();
   }
 
   private navigateToHome() {
@@ -62,23 +64,30 @@ export class DietPlanFormComponent implements OnInit {
 
   addDietPlan() {
     if (this.validateFields()) {
-      this.dietPlanFormService.addDietPlan(this.dietPlan).subscribe();
+      this.dietPlanDTO.timePeriod = this.timePeriodDTO;
+      this.dietPlanDTO.foodFilters = [this.foodFilters];
+      this.dietPlannerService.addDietPlan(this.dietPlanDTO).subscribe();
       this.navigateToHome();
+    } else {
+      console.log(this.dietPlanDTO);
     }
   }
 
   private validateFields() {
     return (
-      this.dietPlan.age &&
-      this.dietPlan.height &&
-      this.dietPlan.gender &&
-      this.dietPlan.weight &&
-      this.dietPlan.goal &&
-      this.dietPlan.finalGoal &&
-      this.dietPlan.timePeriod &&
-      this.dietPlan.activity &&
-      this.dietPlan.foodType &&
-      this.dietPlan.foodFilters
+      this.dietPlanDTO.age &&
+      this.dietPlanDTO.title &&
+      this.dietPlanDTO.description &&
+      this.dietPlanDTO.height &&
+      this.dietPlanDTO.gender &&
+      this.dietPlanDTO.weight &&
+      this.dietPlanDTO.goal &&
+      this.dietPlanDTO.finalGoal &&
+      this.dietPlanDTO.activity &&
+      this.dietPlanDTO.foodType &&
+      this.dietPlanDTO.foodFilters &&
+      this.timePeriodDTO.duration &&
+      this.timePeriodDTO.timestamp
     );
   }
 }

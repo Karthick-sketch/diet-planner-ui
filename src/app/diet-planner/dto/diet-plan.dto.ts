@@ -1,10 +1,10 @@
 import { Gender } from '../enum/gender.enum';
 import { Goal } from '../enum/goal.enum';
+import { TimePeriodDTO } from './time-period.dto';
 import { Activity } from '../enum/activity.enum';
 import { FoodType } from '../enum/food-type.enum';
-import { TimePeriodDTO } from '../dto/time-period.dto';
 
-export class DietPlanModel {
+export class DietPlanDTO {
   id!: string;
   title!: string;
   description!: string;
@@ -18,9 +18,4 @@ export class DietPlanModel {
   activity!: Activity;
   foodType!: FoodType;
   foodFilters!: string[];
-  tdee!: number;
-  deficit!: number;
-  protein!: number;
-  fat!: number;
-  carbs!: number;
 }

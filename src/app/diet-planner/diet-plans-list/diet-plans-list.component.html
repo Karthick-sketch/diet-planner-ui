@@ -1,0 +1,22 @@
+<section>
+  <div>
+    <header>Diet Plans</header>
+    <button (click)="openDietPlanForm()">
+      <img src="add-black.svg" alt="add-diet-plan" />
+      Add Diet Plan
+    </button>
+  </div>
+
+  <div class="container">
+    @for (dietPlan of dietPlans; track dietPlan.id) {
+    <div class="diet-plan">
+      <div class="plan-title">{{ dietPlan.title }}</div>
+      <div class="plan-description">{{ dietPlan.description }}</div>
+      <div class="plan-calories">Calories: {{ dietPlan.tdee }}/day</div>
+      <a href="#" class="button">View Plan</a>
+    </div>
+    } @empty {
+    <p>No available Diet plans.</p>
+    }
+  </div>
+</section>
