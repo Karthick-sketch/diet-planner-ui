@@ -6,14 +6,20 @@ import { DietPlanModel } from './model/diet-plan.model';
 @Injectable({
   providedIn: 'root',
 })
-export class DietPlannerService {
+export class DietPlanService {
+  basePath = '/diet-plan';
+
   constructor(private http: HttpClient) {}
 
   getAllDietPlans() {
-    return this.http.get<DietPlanModel[]>('/diet-planner');
+    return this.http.get<DietPlanModel[]>(`${this.basePath}/list`);
+  }
+
+  getDietPlan(id: string) {
+    return this.http.get<DietPlanModel>(`${this.basePath}/${id}`);
   }
 
   addDietPlan(dietPlanDTO: DietPlanDTO) {
-    return this.http.post<DietPlanModel>('/diet-planner', dietPlanDTO);
+    return this.http.post<DietPlanModel>(this.basePath, dietPlanDTO);
   }
 }

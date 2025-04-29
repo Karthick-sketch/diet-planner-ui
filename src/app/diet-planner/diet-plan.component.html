@@ -1,25 +1,26 @@
+@if (dietPlan) {
 <div>
   <section>
-    <h1>Diet Planner</h1>
+    <h1>{{ dietPlan.title }}</h1>
   </section>
   <section>
     <h2>Daily Summary</h2>
-    <p>1250 calories</p>
+    <p>{{ dietPlan.deficit }} calories</p>
     <div class="outer-bar">
       <div class="inner-bar">-</div>
     </div>
     <div class="macros">
       <div>
         <div>Proteins</div>
-        <div>82 g</div>
+        <div>{{ dietPlan.protein }} g</div>
       </div>
       <div>
         <div>Carbs</div>
-        <div>205 g</div>
+        <div>{{ dietPlan.carbs }} g</div>
       </div>
       <div>
         <div>Fats</div>
-        <div>41 g</div>
+        <div>{{ dietPlan.fat }} g</div>
       </div>
     </div>
   </section>
@@ -62,3 +63,4 @@
     </div>
   </section>
 </div>
+}

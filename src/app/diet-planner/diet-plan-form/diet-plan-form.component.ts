@@ -8,7 +8,7 @@ import { Gender } from '../enum/gender.enum';
 import { Goal } from '../enum/goal.enum';
 import { Activity } from '../enum/activity.enum';
 import { FoodType } from '../enum/food-type.enum';
-import { DietPlannerService } from '../diet-planner-service';
+import { DietPlanService } from '../diet-plan-service';
 
 @Component({
   selector: 'app-diet-plan-form',
@@ -46,7 +46,7 @@ export class DietPlanFormComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dietPlannerService: DietPlannerService
+    private dietPlanService: DietPlanService
   ) {}
 
   ngOnInit() {
@@ -66,7 +66,7 @@ export class DietPlanFormComponent implements OnInit {
     if (this.validateFields()) {
       this.dietPlanDTO.timePeriod = this.timePeriodDTO;
       this.dietPlanDTO.foodFilters = [this.foodFilters];
-      this.dietPlannerService.addDietPlan(this.dietPlanDTO).subscribe();
+      this.dietPlanService.addDietPlan(this.dietPlanDTO).subscribe();
       this.navigateToHome();
     } else {
       console.log(this.dietPlanDTO);
@@ -85,7 +85,6 @@ export class DietPlanFormComponent implements OnInit {
       this.dietPlanDTO.finalGoal &&
       this.dietPlanDTO.activity &&
       this.dietPlanDTO.foodType &&
-      this.dietPlanDTO.foodFilters &&
       this.timePeriodDTO.duration &&
       this.timePeriodDTO.timestamp
     );

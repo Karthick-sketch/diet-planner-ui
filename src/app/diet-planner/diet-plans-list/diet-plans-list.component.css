@@ -1,10 +1,27 @@
 header {
-  background-color: teal;
-  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header > span {
+  color: #333;
   padding: 1rem;
-  text-align: center;
   font-size: 1.8rem;
   font-weight: bold;
+}
+
+.add-plan-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 1rem;
+  background-color: teal;
+  border: none;
+  border-radius: 8px;
 }
 
 .container {
