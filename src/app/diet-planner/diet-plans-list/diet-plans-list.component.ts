@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DietPlannerService } from '../diet-planner-service';
-import { DietPlanDTO } from '../dto/diet-plan.dto';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DietPlanService } from '../diet-plan-service';
+import { DietPlanDTO } from '../dto/diet-plan.dto';
 import { DietPlanModel } from '../model/diet-plan.model';
 
 @Component({
@@ -13,7 +13,7 @@ export class DietPlansListComponent implements OnInit {
   dietPlans!: DietPlanModel[];
 
   constructor(
-    private dietPlannerService: DietPlannerService,
+    private dietPlanService: DietPlanService,
     private router: Router
   ) {}
 
@@ -22,7 +22,7 @@ export class DietPlansListComponent implements OnInit {
   }
 
   getAllDietPlans() {
-    this.dietPlannerService
+    this.dietPlanService
       .getAllDietPlans()
       .subscribe((dietPlanModels: DietPlanModel[]) => {
         this.dietPlans = dietPlanModels;
@@ -30,7 +30,7 @@ export class DietPlansListComponent implements OnInit {
   }
 
   addDietPlan(dietPlanDTO: DietPlanDTO) {
-    this.dietPlannerService.addDietPlan(dietPlanDTO).subscribe();
+    this.dietPlanService.addDietPlan(dietPlanDTO).subscribe();
   }
 
   openDietPlanForm() {
