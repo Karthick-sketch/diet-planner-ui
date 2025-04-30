@@ -9,6 +9,7 @@ import { Goal } from '../enum/goal.enum';
 import { Activity } from '../enum/activity.enum';
 import { FoodType } from '../enum/food-type.enum';
 import { DietPlanService } from '../diet-plan-service';
+import { DietPlanModel } from '../model/diet-plan.model';
 
 @Component({
   selector: 'app-diet-plan-form',
@@ -54,20 +55,19 @@ export class DietPlanFormComponent implements OnInit {
     this.timePeriodDTO = new TimePeriodDTO();
   }
 
-  private navigateToHome() {
-    this.router.navigate(['/']);
-  }
-
   cancel() {
-    this.navigateToHome();
+    this.router.navigate(['/']);
   }
 
   addDietPlan() {
     if (this.validateFields()) {
       this.dietPlanDTO.timePeriod = this.timePeriodDTO;
       this.dietPlanDTO.foodFilters = [this.foodFilters];
-      this.dietPlanService.addDietPlan(this.dietPlanDTO).subscribe();
-      this.navigateToHome();
+      this.dietPlanService
+        .addDietPlan(this.dietPlanDTO)
+        .subscribe((dietPlan: DietPlanModel) => {
+          this.router.navigate([`/diet-plan/${dietPlan.id}`]);
+        });
     } else {
       console.log(this.dietPlanDTO);
     }
