@@ -5,22 +5,28 @@
   </section>
   <section>
     <h2>Daily Summary</h2>
-    <p>{{ dietPlan.deficit }} calories</p>
+    <p>Calories {{ dietPlan.deficit }} / {{ dietPlan.deficit }}</p>
     <div class="outer-bar">
       <div class="inner-bar">-</div>
     </div>
     <div class="macros">
       <div>
-        <div>Proteins</div>
-        <div>{{ dietPlan.protein }} g</div>
+        <p>Proteins {{ dietPlan.protein }} / {{ dietPlan.protein }} g</p>
+        <div class="outer-bar">
+          <div class="inner-bar">-</div>
+        </div>
       </div>
       <div>
-        <div>Carbs</div>
-        <div>{{ dietPlan.carbs }} g</div>
+        <p>Carbs {{ dietPlan.carbs }} / {{ dietPlan.carbs }} g</p>
+        <div class="outer-bar">
+          <div class="inner-bar">-</div>
+        </div>
       </div>
       <div>
-        <div>Fats</div>
-        <div>{{ dietPlan.fat }} g</div>
+        <p>Fats {{ dietPlan.fat }} / {{ dietPlan.fat }} g</p>
+        <div class="outer-bar">
+          <div class="inner-bar">-</div>
+        </div>
       </div>
     </div>
   </section>

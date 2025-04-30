@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DietPlanFormComponent } from './diet-planner/diet-plan-form/diet-plan-form.component';
 import { DietPlansListComponent } from './diet-planner/diet-plans-list/diet-plans-list.component';
-import { DietPlanComponent } from './diet-planner/diet-plan/diet-plan.component';
+import { DietPlanComponent } from './diet-planner/diet-plan.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
