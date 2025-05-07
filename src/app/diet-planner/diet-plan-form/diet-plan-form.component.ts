@@ -47,7 +47,7 @@ export class DietPlanFormComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dietPlanService: DietPlanService
+    private dietPlanService: DietPlanService,
   ) {}
 
   ngOnInit() {

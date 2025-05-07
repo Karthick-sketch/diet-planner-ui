@@ -1,72 +1,93 @@
 @if (dietPlan) {
-<div>
-  <section>
-    <h1>{{ dietPlan.title }}</h1>
-  </section>
-  <section>
-    <h2>Daily Summary</h2>
-    <p>Calories {{ dietPlan.deficit }} / {{ dietPlan.deficit }}</p>
-    <div class="outer-bar">
-      <div class="inner-bar">-</div>
-    </div>
-    <div class="macros">
-      <div>
-        <p>Proteins {{ dietPlan.protein }} / {{ dietPlan.protein }} g</p>
-        <div class="outer-bar">
-          <div class="inner-bar">-</div>
+  <div>
+    <section>
+      <h1>{{ dietPlan.title }}</h1>
+    </section>
+    <section>
+      <h2>Daily Summary</h2>
+      <p>Calories {{ dietPlanTrack.deficit.taken }} / {{ dietPlanTrack.deficit.total }}</p>
+      <div class="outer-bar">
+        <div class="inner-bar">-</div>
+      </div>
+      <div class="macros">
+        <div>
+          <p>Proteins {{ dietPlan.protein }} / {{ dietPlan.protein }} g</p>
+          <div class="outer-bar">
+            <div class="inner-bar">-</div>
+          </div>
+        </div>
+        <div>
+          <p>Carbs {{ dietPlan.carbs }} / {{ dietPlan.carbs }} g</p>
+          <div class="outer-bar">
+            <div class="inner-bar">-</div>
+          </div>
+        </div>
+        <div>
+          <p>Fats {{ dietPlan.fat }} / {{ dietPlan.fat }} g</p>
+          <div class="outer-bar">
+            <div class="inner-bar">-</div>
+          </div>
         </div>
       </div>
-      <div>
-        <p>Carbs {{ dietPlan.carbs }} / {{ dietPlan.carbs }} g</p>
-        <div class="outer-bar">
-          <div class="inner-bar">-</div>
-        </div>
-      </div>
-      <div>
-        <p>Fats {{ dietPlan.fat }} / {{ dietPlan.fat }} g</p>
-        <div class="outer-bar">
-          <div class="inner-bar">-</div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section>
-    <h2>Today's Meals</h2>
-    <div class="meal">
-      <div>Breakfast</div>
-      <button>Add</button>
-    </div>
-    <div class="meal">
-      <div>Lunch</div>
-      <button>Add</button>
-    </div>
-    <div class="meal">
-      <div>Dinner</div>
-      <button>Add</button>
-    </div>
-  </section>
-  <section class="action-section">
-    <button>
-      <img src="add-teal.svg" alt="add-food" />
-      Add Food
-    </button>
-    <button>
-      <img src="track-weight.svg" alt="track-weight" />
-      Track Weight
-    </button>
-  </section>
-  <section>
-    <h2>Smart Suggestions</h2>
-    <div class="suggestions">
+    </section>
+    <section>
+      <h2>Today's Meals</h2>
+      <ng-container
+        *ngTemplateOutlet="macros; context: { category: 'Breakfast', protein: meals.breakfast.protein, carbs: meals.breakfast.carbs, fat: meals.breakfast.fat }"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="macros; context: { category: 'Lunch', protein: meals.lunch.protein, carbs: meals.lunch.carbs, fat: meals.lunch.fat }"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="macros; context: { category: 'Dinner', protein: meals.dinner.protein, carbs: meals.dinner.carbs, fat: meals.dinner.fat }"></ng-container>
+    </section>
+    <section class="action-section">
       <button>
-        <span>What should I eat now?</span>
-        <img src="right.svg" alt="right-button" />
+        <img src="add-teal.svg" alt="add-food"/>
+        Add Food
       </button>
       <button>
-        <span>Low-carb dinner ideas</span>
-        <img src="right.svg" alt="right-button" />
+        <img src="track-weight.svg" alt="track-weight"/>
+        Track Weight
       </button>
-    </div>
-  </section>
-</div>
+    </section>
+    <section>
+      <h2>Smart Suggestions</h2>
+      <div class="suggestions">
+        <button>
+          <span>What should I eat now?</span>
+          <img src="right.svg" alt="right-button"/>
+        </button>
+        <button>
+          <span>Low-carb dinner ideas</span>
+          <img src="right.svg" alt="right-button"/>
+        </button>
+      </div>
+    </section>
+  </div>
 }
+
+<ng-template #macros let-category='category' let-protein='protein' let-carbs='carbs' let-fat="fat">
+  <div class="meal">
+    <div>{{ category }}</div>
+    <button>Add</button>
+  </div>
+  <div class="macros">
+    <div>
+      <p>Proteins {{ protein.taken }} / {{ protein.total }} g</p>
+      <div class="outer-bar">
+        <div class="inner-bar">-</div>
+      </div>
+    </div>
+    <div>
+      <p>Carbs {{ carbs.taken }} / {{ carbs.total }} g</p>
+      <div class="outer-bar">
+        <div class="inner-bar">-</div>
+      </div>
+    </div>
+    <div>
+      <p>Fats {{ fat.taken }} / {{ fat.total }} g</p>
+      <div class="outer-bar">
+        <div class="inner-bar">-</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
