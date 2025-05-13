@@ -1,4 +1,4 @@
-@if (dietPlan) {
+@if (dietPlan && dietPlanTrack) {
   <div>
     <section>
       <h1>{{ dietPlan.title }}</h1>
@@ -33,11 +33,11 @@
     <section>
       <h2>Today's Meals</h2>
       <ng-container
-        *ngTemplateOutlet="macros; context: { category: 'Breakfast', protein: meals.breakfast.protein, carbs: meals.breakfast.carbs, fat: meals.breakfast.fat }"></ng-container>
+        *ngTemplateOutlet="macrosTrack; context: { category: 'Breakfast', protein: meals.breakfast.protein, carbs: meals.breakfast.carbs, fat: meals.breakfast.fat }"></ng-container>
       <ng-container
-        *ngTemplateOutlet="macros; context: { category: 'Lunch', protein: meals.lunch.protein, carbs: meals.lunch.carbs, fat: meals.lunch.fat }"></ng-container>
+        *ngTemplateOutlet="macrosTrack; context: { category: 'Lunch', protein: meals.lunch.protein, carbs: meals.lunch.carbs, fat: meals.lunch.fat }"></ng-container>
       <ng-container
-        *ngTemplateOutlet="macros; context: { category: 'Dinner', protein: meals.dinner.protein, carbs: meals.dinner.carbs, fat: meals.dinner.fat }"></ng-container>
+        *ngTemplateOutlet="macrosTrack; context: { category: 'Dinner', protein: meals.dinner.protein, carbs: meals.dinner.carbs, fat: meals.dinner.fat }"></ng-container>
     </section>
     <section class="action-section">
       <button>
@@ -65,10 +65,10 @@
   </div>
 }
 
-<ng-template #macros let-category='category' let-protein='protein' let-carbs='carbs' let-fat="fat">
+<ng-template #macrosTrack let-category="category" let-protein="protein" let-carbs="carbs" let-fat="fat">
   <div class="meal">
     <div>{{ category }}</div>
-    <button>Add</button>
+    <button (click)="openAddKcalWindow(category)">Add</button>
   </div>
   <div class="macros">
     <div>
@@ -87,6 +87,30 @@
       <p>Fats {{ fat.taken }} / {{ fat.total }} g</p>
       <div class="outer-bar">
         <div class="inner-bar">-</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #addKcalWindow let-category="category" let-macros="macros">
+  <div class="overlay-style">
+    <div class="popup-style">
+      <h3>Add {{ category }}</h3>
+      <div>
+        <label for="add-protein">Protein:</label>
+        <input type="number" name="add-protein" [(ngModel)]="macros.protein.taken"/>
+      </div>
+      <div>
+        <label for="add-carbs">Carbs:</label>
+        <input type="number" name="add-carbs" [(ngModel)]="macros.carbs.taken"/>
+      </div>
+      <div>
+        <label for="add-fat">Fat:</label>
+        <input type="number" name="add-fat" [(ngModel)]="macros.fat.taken"/>
+      </div>
+      <div>
+        <button (click)="closeAddKcalWindow()">Cancel</button>
+        <button (click)="addKcal(category, macros)">Add</button>
       </div>
     </div>
   </div>
