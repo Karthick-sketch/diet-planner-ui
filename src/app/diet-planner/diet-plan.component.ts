@@ -48,6 +48,7 @@ export class DietPlanComponent implements OnInit {
             this.dietPlan = dietPlanModel;
             this.dietPlanService.getDietPlanTrack(dietPlanModel.id).subscribe({
               next: (dietPlanTrackModel: DietPlanTrackModel) => {
+                console.log(dietPlanTrackModel);
                 this.dietPlanTrack = dietPlanTrackModel;
                 this.meals = dietPlanTrackModel.mealKcal;
               },
@@ -107,5 +108,14 @@ export class DietPlanComponent implements OnInit {
         this.meals = dietPlanTrackModel.mealKcal;
       });
     this.closeAddKcalWindow();
+  }
+
+  trackWeight() {
+    this.dietPlanService
+      .trackWeight(this.dietPlan.id, this.dietPlanTrack.weight)
+      .subscribe((dietPlanTrackModel: DietPlanTrackModel) => {
+        this.dietPlanTrack = dietPlanTrackModel;
+        this.meals = dietPlanTrackModel.mealKcal;
+      });
   }
 }

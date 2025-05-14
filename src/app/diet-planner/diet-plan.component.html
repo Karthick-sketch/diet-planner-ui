@@ -1,33 +1,17 @@
 @if (dietPlan && dietPlanTrack) {
   <div>
-    <section>
-      <h1>{{ dietPlan.title }}</h1>
-    </section>
+    <h1>{{ dietPlan.title }}</h1>
     <section>
       <h2>Daily Summary</h2>
+      <div>
+        <span>Today Weight</span>
+        <input type="number" [(ngModel)]="dietPlanTrack.weight"/>
+        <span>kg</span>
+        <button (click)="trackWeight()">Track Weight</button>
+      </div>
       <p>Calories {{ dietPlanTrack.deficit.taken }} / {{ dietPlanTrack.deficit.total }}</p>
       <div class="outer-bar">
         <div class="inner-bar">-</div>
-      </div>
-      <div class="macros">
-        <div>
-          <p>Proteins {{ dietPlan.protein }} / {{ dietPlan.protein }} g</p>
-          <div class="outer-bar">
-            <div class="inner-bar">-</div>
-          </div>
-        </div>
-        <div>
-          <p>Carbs {{ dietPlan.carbs }} / {{ dietPlan.carbs }} g</p>
-          <div class="outer-bar">
-            <div class="inner-bar">-</div>
-          </div>
-        </div>
-        <div>
-          <p>Fats {{ dietPlan.fat }} / {{ dietPlan.fat }} g</p>
-          <div class="outer-bar">
-            <div class="inner-bar">-</div>
-          </div>
-        </div>
       </div>
     </section>
     <section>
@@ -71,24 +55,9 @@
     <button (click)="openAddKcalWindow(category)">Add</button>
   </div>
   <div class="macros">
-    <div>
-      <p>Proteins {{ protein.taken }} / {{ protein.total }} g</p>
-      <div class="outer-bar">
-        <div class="inner-bar">-</div>
-      </div>
-    </div>
-    <div>
-      <p>Carbs {{ carbs.taken }} / {{ carbs.total }} g</p>
-      <div class="outer-bar">
-        <div class="inner-bar">-</div>
-      </div>
-    </div>
-    <div>
-      <p>Fats {{ fat.taken }} / {{ fat.total }} g</p>
-      <div class="outer-bar">
-        <div class="inner-bar">-</div>
-      </div>
-    </div>
+    <p>Proteins {{ protein.taken }} / {{ protein.total }} g</p>
+    <p>Carbs {{ carbs.taken }} / {{ carbs.total }} g</p>
+    <p>Fats {{ fat.taken }} / {{ fat.total }} g</p>
   </div>
 </ng-template>
 

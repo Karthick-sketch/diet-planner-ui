@@ -12,6 +12,7 @@ header > span {
 }
 
 .add-plan-btn {
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;

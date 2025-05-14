@@ -25,6 +25,13 @@ export class DietPlanService {
     return this.http.post<DietPlanModel>(this.basePath, dietPlanDTO);
   }
 
+  trackWeight(dietPlanId: string, weight: number) {
+    return this.http.post<DietPlanTrackModel>(
+      `${this.basePath}/track-weight/${dietPlanId}`,
+      weight,
+    );
+  }
+
   getDietPlanTrack(dietPlanId: string) {
     return this.http.get<DietPlanTrackModel>(
       `${this.basePath}/track/${dietPlanId}`,
