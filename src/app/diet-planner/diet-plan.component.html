@@ -7,12 +7,38 @@
         <span>Today Weight</span>
         <input type="number" [(ngModel)]="dietPlanTrack.weight"/>
         <span>kg</span>
-        <button (click)="trackWeight()">Track Weight</button>
+        <button (click)="addWeight()">Update</button>
       </div>
       <p>Calories {{ dietPlanTrack.deficit.taken }} / {{ dietPlanTrack.deficit.total }}</p>
-      <div class="outer-bar">
-        <div class="inner-bar">-</div>
-      </div>
+      @if (dietPlanTrack.deficit.taken > dietPlanTrack.tdee) {
+        <div class="outer-bar">
+          <div class="inner-bar-danger">
+            <span>•</span>
+            <span>•</span>
+            <span>•</span>
+          </div>
+        </div>
+        <div class="bar-value-danger">
+          <span>{{ dietPlanTrack.deficit.total }}</span>
+          <span>{{ dietPlanTrack.tdee }}</span>
+          <span>{{ dietPlanTrack.deficit.taken }}</span>
+        </div>
+      } @else if (dietPlanTrack.deficit.taken > dietPlanTrack.deficit.total) {
+        <div class="outer-bar">
+          <div class="inner-bar-warning">
+            <div class="value-warning-center">•</div>
+            <div class="value-warning-right">•</div>
+          </div>
+        </div>
+        <div class="bar-value-warning">
+          <div class="value-warning-center">{{ dietPlanTrack.deficit.total }}</div>
+          <div class="value-warning-right">{{ dietPlanTrack.deficit.taken }}</div>
+        </div>
+      } @else {
+        <div class="outer-bar">
+          <div class="inner-bar-normal" [style.width.%]="kcalPercentage">-</div>
+        </div>
+      }
     </section>
     <section>
       <h2>Today's Meals</h2>

@@ -18,9 +18,4 @@ export class DietPlanModel {
   activity!: Activity;
   foodType!: FoodType;
   foodFilters!: string[];
-  tdee!: number;
-  deficit!: number;
-  protein!: number;
-  fat!: number;
-  carbs!: number;
 }

@@ -19,11 +19,48 @@ button {
   border-radius: 10px;
 }
 
-.inner-bar {
-  width: 40%;
+.inner-bar-normal {
   color: transparent;
   background-color: teal;
   border-radius: 10px;
+}
+
+.inner-bar-warning {
+  color: white;
+  width: 100%;
+  background-color: #ffcc00;
+  border-radius: 10px;
+}
+
+.inner-bar-danger {
+  color: white;
+  width: 100%;
+  background-color: red;
+  border-radius: 10px;
+}
+
+.inner-bar-warning,
+.bar-value-warning {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.value-warning-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.value-warning-right {
+  margin-left: auto;
+}
+
+.inner-bar-danger,
+.bar-value-danger {
+  display: flex;
+  justify-content: space-between;
 }
 
 .macros {
