@@ -8,11 +8,6 @@ button {
   border: none;
 }
 
-.action-section {
-  display: flex;
-  justify-content: space-around;
-}
-
 .outer-bar {
   width: 100%;
   background-color: #dfdfdf;
@@ -64,7 +59,13 @@ button {
 }
 
 .macros {
-  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.macros > div {
+  text-align: center;
 }
 
 .meal {

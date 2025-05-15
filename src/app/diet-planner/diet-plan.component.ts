@@ -101,14 +101,14 @@ export class DietPlanComponent implements OnInit {
     this.embeddedViewRef = undefined;
   }
 
-  addKcal(category: string, macros: MacrosDTO) {
+  updateKcal(category: string, macros: MacrosDTO) {
     this.dietPlanService
-      .addMealKcal(this.dietPlan.id, category.toLowerCase(), macros)
+      .updateMacros(this.dietPlan.id, category.toLowerCase(), macros)
       .subscribe((dietPlanTrackModel: DietPlanTrackModel) => {
         this.dietPlanTrack = dietPlanTrackModel;
         this.meals = dietPlanTrackModel.mealKcal;
+        this.setKcalPercentage();
       });
-    this.setKcalPercentage();
     this.closeAddKcalWindow();
   }
 
@@ -118,8 +118,8 @@ export class DietPlanComponent implements OnInit {
       .subscribe((dietPlanTrackModel: DietPlanTrackModel) => {
         this.dietPlanTrack = dietPlanTrackModel;
         this.meals = dietPlanTrackModel.mealKcal;
+        this.setKcalPercentage();
       });
-    this.setKcalPercentage();
   }
 
   setKcalPercentage() {
