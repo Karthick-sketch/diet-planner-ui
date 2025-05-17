@@ -4,6 +4,7 @@ import { DietPlanDTO } from './dto/diet-plan.dto';
 import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
 import { MacrosDTO } from './dto/macros.dto';
+import { MetricsModel } from './model/metrics.model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,5 +44,9 @@ export class DietPlanService {
       `${this.basePath}/${category}/${dietPlanId}`,
       macros,
     );
+  }
+
+  getMetrics(dietPlanId: string) {
+    return this.http.get<MetricsModel>(`${this.basePath}/metrics/${dietPlanId}`);
   }
 }
