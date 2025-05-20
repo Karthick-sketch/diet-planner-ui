@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DietPlanDTO } from './dto/diet-plan.dto';
 import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
+import { MacrosDTO } from './dto/macros.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,15 @@ export class DietPlanService {
   }
 
   getDietPlanTrack(dietPlanId: string) {
-    return this.http.get<DietPlanTrackModel>(`${this.basePath}/track/${dietPlanId}`);
+    return this.http.get<DietPlanTrackModel>(
+      `${this.basePath}/track/${dietPlanId}`,
+    );
+  }
+
+  addMealKcal(dietPlanId: string, category: string, macros: MacrosDTO) {
+    return this.http.post<DietPlanTrackModel>(
+      `${this.basePath}/${category}/${dietPlanId}`,
+      macros,
+    );
   }
 }
