@@ -10,8 +10,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DietPlanService } from './diet-plan-service';
+import { WeightTrackComponent } from './weight-track/weight-track.component';
 import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
+import { MetricsModel } from './model/metrics.model';
 import { MealKcalDTO } from './dto/meal-kcal.dto';
 import { MacrosDTO } from './dto/macros.dto';
 import { MealCategoriesConstants } from './constants/meal-categories.constants';
@@ -20,11 +22,12 @@ import { MealCategoriesConstants } from './constants/meal-categories.constants';
   selector: 'app-diet-plan',
   templateUrl: './diet-plan.component.html',
   styleUrl: './diet-plan.component.css',
-  imports: [NgTemplateOutlet, FormsModule],
+  imports: [NgTemplateOutlet, FormsModule, WeightTrackComponent],
 })
 export class DietPlanComponent implements OnInit {
   dietPlan!: DietPlanModel;
   dietPlanTrack!: DietPlanTrackModel;
+  metrics!: MetricsModel;
   meals!: MealKcalDTO;
   kcalPercentage!: number;
 
@@ -59,6 +62,11 @@ export class DietPlanComponent implements OnInit {
                 }
               },
             });
+            this.dietPlanService
+              .getMetrics(id)
+              .subscribe((metricsModel: MetricsModel) => {
+                this.metrics = metricsModel;
+              });
           },
           error: (err) => {
             if (err.status === 404) {
@@ -123,6 +131,8 @@ export class DietPlanComponent implements OnInit {
   }
 
   setKcalPercentage() {
-    this.kcalPercentage = this.dietPlanTrack.deficit.taken / this.dietPlanTrack.deficit.total * 100;
+    this.kcalPercentage =
+      (this.dietPlanTrack.deficit.taken / this.dietPlanTrack.deficit.total) *
+      100;
   }
 }
