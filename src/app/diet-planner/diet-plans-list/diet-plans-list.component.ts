@@ -14,7 +14,7 @@ export class DietPlansListComponent implements OnInit {
 
   constructor(
     private dietPlanService: DietPlanService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
