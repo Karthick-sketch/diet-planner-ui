@@ -47,6 +47,8 @@ export class DietPlanService {
   }
 
   getMetrics(dietPlanId: string) {
-    return this.http.get<MetricsModel>(`${this.basePath}/metrics/${dietPlanId}`);
+    return this.http.get<MetricsModel>(
+      `${this.basePath}/metrics/${dietPlanId}`,
+    );
   }
 }
