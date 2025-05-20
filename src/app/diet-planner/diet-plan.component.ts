@@ -26,6 +26,7 @@ export class DietPlanComponent implements OnInit {
   dietPlan!: DietPlanModel;
   dietPlanTrack!: DietPlanTrackModel;
   meals!: MealKcalDTO;
+  kcalPercentage!: number;
 
   @ViewChild('addKcalWindow')
   addKcalWindow!: TemplateRef<any>;
@@ -48,9 +49,9 @@ export class DietPlanComponent implements OnInit {
             this.dietPlan = dietPlanModel;
             this.dietPlanService.getDietPlanTrack(dietPlanModel.id).subscribe({
               next: (dietPlanTrackModel: DietPlanTrackModel) => {
-                console.log(dietPlanTrackModel);
                 this.dietPlanTrack = dietPlanTrackModel;
                 this.meals = dietPlanTrackModel.mealKcal;
+                this.setKcalPercentage();
               },
               error: (err) => {
                 if (err.status === 404) {
@@ -107,15 +108,21 @@ export class DietPlanComponent implements OnInit {
         this.dietPlanTrack = dietPlanTrackModel;
         this.meals = dietPlanTrackModel.mealKcal;
       });
+    this.setKcalPercentage();
     this.closeAddKcalWindow();
   }
 
-  trackWeight() {
+  addWeight() {
     this.dietPlanService
-      .trackWeight(this.dietPlan.id, this.dietPlanTrack.weight)
+      .addWeight(this.dietPlan.id, this.dietPlanTrack.weight)
       .subscribe((dietPlanTrackModel: DietPlanTrackModel) => {
         this.dietPlanTrack = dietPlanTrackModel;
         this.meals = dietPlanTrackModel.mealKcal;
       });
+    this.setKcalPercentage();
+  }
+
+  setKcalPercentage() {
+    this.kcalPercentage = this.dietPlanTrack.deficit.taken / this.dietPlanTrack.deficit.total * 100;
   }
 }
