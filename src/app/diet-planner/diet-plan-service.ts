@@ -38,7 +38,7 @@ export class DietPlanService {
     );
   }
 
-  addMealKcal(dietPlanId: string, category: string, macros: MacrosDTO) {
+  updateMacros(dietPlanId: string, category: string, macros: MacrosDTO) {
     return this.http.post<DietPlanTrackModel>(
       `${this.basePath}/${category}/${dietPlanId}`,
       macros,
