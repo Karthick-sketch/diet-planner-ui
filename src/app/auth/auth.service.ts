@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
+import { TokenService } from './token.service';
 import { UserSignupDTO } from './dto/user-signup.dto';
 import { UserLoginDTO } from './dto/user-login.dto';
 
@@ -8,7 +9,7 @@ import { UserLoginDTO } from './dto/user-login.dto';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) { }
 
   signup(userSignupDTO: UserSignupDTO) {
     return this.http.post('/user/register', userSignupDTO);
@@ -32,6 +33,6 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return !!localStorage.getItem('token');
+    return this.tokenService.isLoggedIn();
   }
 }

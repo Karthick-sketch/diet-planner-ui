@@ -17,12 +17,13 @@ import { MetricsModel } from './model/metrics.model';
 import { MealKcalDTO } from './dto/meal-kcal.dto';
 import { MacrosDTO } from './dto/macros.dto';
 import { MealCategoriesConstants } from './constants/meal-categories.constants';
+import { AIFoodSuggestComponent } from './ai-food-suggest/ai-food-suggest.component';
 
 @Component({
   selector: 'app-diet-plan',
   templateUrl: './diet-plan.component.html',
   styleUrl: './diet-plan.component.css',
-  imports: [NgTemplateOutlet, FormsModule, WeightTrackComponent],
+  imports: [NgTemplateOutlet, FormsModule, WeightTrackComponent, AIFoodSuggestComponent],
 })
 export class DietPlanComponent implements OnInit {
   dietPlan!: DietPlanModel;

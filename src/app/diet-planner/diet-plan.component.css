@@ -2,12 +2,6 @@ h2 {
   color: #4e4e4e;
 }
 
-button {
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
 .outer-bar {
   width: 100%;
   background-color: #dfdfdf;
@@ -73,20 +67,6 @@ button {
   justify-content: space-between;
   padding: 0.75rem 0;
   border-bottom: 1px solid #dfdfdf;
-}
-
-.suggestions {
-  display: flex;
-  flex-direction: column;
-}
-
-.suggestions > button {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid #dfdfdf;
-  border-radius: 0.35rem;
 }
 
 .overlay-style {

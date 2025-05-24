@@ -3,3 +3,9 @@
 body {
   background-color: #dfdfdf;
 }
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}

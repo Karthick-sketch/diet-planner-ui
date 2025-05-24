@@ -1,0 +1,39 @@
+.suggestions {
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestions > button {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #dfdfdf;
+  border-radius: 0.35rem;
+}
+
+.overlay-style {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  overflow-x: scroll;
+}
+
+.popup-style {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.popup-style > div:first-child {
+  font-size: 1.25rem;
+  font-weight: bold;
+}

@@ -1,0 +1,37 @@
+<section>
+  <h2>Smart Suggestions</h2>
+  <div class="suggestions">
+    <button (click)="suggestFood()">
+      <span>Suggest me foods for Breakfast</span>
+      <img src="right.svg" alt="right-button" />
+    </button>
+    <button (click)="suggestFood()">
+      <span>Suggest me foods for Lunch</span>
+      <img src="right.svg" alt="right-button" />
+    </button>
+    <button (click)="suggestFood()">
+      <span>Suggest me foods for Dinner</span>
+      <img src="right.svg" alt="right-button" />
+    </button>
+  </div>
+</section>
+
+<ng-template #suggestFoodWindow let-suggestFoods="suggestFoods">
+  <div class="overlay-style">
+    <div class="popup-style">
+      @for (suggestFood of suggestFoods; track $index) {
+        <div>
+          <h3>{{ suggestFood.name }}</h3>
+          <p><b>Estimated calories</b> ~{{ suggestFood.calories.total }}</p>
+          <p><b>Macronutrients</b></p>
+          <ul>
+            <li>Protein - {{ suggestFood.macronutrients.protein.total }}g</li>
+            <li>Carbs - {{ suggestFood.macronutrients.carbs.total }}g</li>
+            <li>Fat - {{ suggestFood.macronutrients.fat.total }}g</li>
+          </ul>
+          <p><b>Description:</b> {{ suggestFood.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</ng-template>

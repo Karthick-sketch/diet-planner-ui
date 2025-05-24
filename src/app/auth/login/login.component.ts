@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   submit() {
     if (this.user.username && this.user.password) {
       this.authService.login(this.user).subscribe(() => {
-        console.log('Ada');
         this.router.navigate(['/diet-plans']);
       });
     }
