@@ -1,0 +1,16 @@
+<header>
+  <div>
+    <b>Kalories</b>
+    @if (isLogin) {
+      <button class="login-btn">Log In</button>
+    } @else if (isSignup) {
+      <button class="login-btn">Sign Up</button>
+    } @else {
+      <div>
+        <button class="login-btn">Dashboard</button>
+        <button class="login-btn">Meals</button>
+        <button class="login-btn">Progress</button>
+      </div>
+    }
+  </div>
+</header>

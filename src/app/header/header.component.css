@@ -1,0 +1,18 @@
+header {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dcdada;
+}
+
+header div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-btn {
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #4591DF;
+  border-radius: 14px;
+}
