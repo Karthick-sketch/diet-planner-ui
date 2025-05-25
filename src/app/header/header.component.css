@@ -3,7 +3,13 @@ header {
   border-bottom: 1px solid #dcdada;
 }
 
-header div {
+nav {
+  width: 25%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -15,4 +21,12 @@ header div {
   color: white;
   background-color: #4591DF;
   border-radius: 14px;
+}
+
+.profile-icon {
+  padding: 0.5rem 0.75rem;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #4591DF;
+  border-radius: 50%;
 }

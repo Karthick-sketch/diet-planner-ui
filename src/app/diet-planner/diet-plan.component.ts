@@ -10,15 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DietPlanService } from './diet-plan-service';
-import { WeightTrackComponent } from './weight-track/weight-track.component';
+import { HeaderComponent } from '../header/header.component';
 import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
-import { MetricsModel } from './model/metrics.model';
 import { MealKcalDTO } from './dto/meal-kcal.dto';
 import { MacrosDTO } from './dto/macros.dto';
 import { MealCategoriesConstants } from './constants/meal-categories.constants';
-import { AIFoodSuggestComponent } from './ai-food-suggest/ai-food-suggest.component';
-import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-diet-plan',
@@ -27,15 +24,12 @@ import { HeaderComponent } from '../header/header.component';
   imports: [
     NgTemplateOutlet,
     FormsModule,
-    WeightTrackComponent,
-    AIFoodSuggestComponent,
     HeaderComponent,
   ],
 })
 export class DietPlanComponent implements OnInit {
   dietPlan!: DietPlanModel;
   dietPlanTrack!: DietPlanTrackModel;
-  metrics!: MetricsModel;
   meals!: MealKcalDTO;
   kcalPercentage!: number;
 
@@ -52,29 +46,14 @@ export class DietPlanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.dietPlanService.getDietPlan(id).subscribe({
-          next: (dietPlanModel: DietPlanModel) => {
-            this.dietPlan = dietPlanModel;
-            this.dietPlanService.getDietPlanTrack(dietPlanModel.id).subscribe({
-              next: (dietPlanTrackModel: DietPlanTrackModel) => {
-                this.dietPlanTrack = dietPlanTrackModel;
-                this.meals = dietPlanTrackModel.mealKcal;
-                this.setKcalPercentage();
-              },
-              error: (err) => {
-                if (err.status === 404) {
-                  this.router.navigate(['/not-found']);
-                }
-              },
-            });
-            this.dietPlanService
-              .getMetrics(id)
-              .subscribe((metricsModel: MetricsModel) => {
-                this.metrics = metricsModel;
-              });
+    this.dietPlanService.getDietPlan().subscribe({
+      next: (dietPlanModel: DietPlanModel) => {
+        this.dietPlan = dietPlanModel;
+        this.dietPlanService.getDietPlanTrack(dietPlanModel.id).subscribe({
+          next: (dietPlanTrackModel: DietPlanTrackModel) => {
+            this.dietPlanTrack = dietPlanTrackModel;
+            this.meals = dietPlanTrackModel.mealKcal;
+            this.setKcalPercentage();
           },
           error: (err) => {
             if (err.status === 404) {
@@ -82,9 +61,12 @@ export class DietPlanComponent implements OnInit {
             }
           },
         });
-      } else {
-        this.router.navigate(['/not-found']);
-      }
+      },
+      error: (err) => {
+        if (err.status === 404) {
+          this.router.navigate(['/not-found']);
+        }
+      },
     });
   }
 

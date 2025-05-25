@@ -1,16 +1,22 @@
 <header>
-  <div>
+  <div class="header-container">
     <b>Kalories</b>
     @if (isLogin) {
-      <button class="login-btn">Log In</button>
-    } @else if (isSignup) {
-      <button class="login-btn">Sign Up</button>
-    } @else {
       <div>
-        <button class="login-btn">Dashboard</button>
-        <button class="login-btn">Meals</button>
-        <button class="login-btn">Progress</button>
+        <button class="login-btn">Log In</button>
       </div>
+    } @else if (isSignup) {
+      <div>
+        <button class="login-btn">Sign Up</button>
+      </div>
+    } @else {
+      <nav>
+        <button [routerLink]="'/dashboard'">Dashboard</button>
+        <button [routerLink]="'/progress'">Progress</button>
+        <button [routerLink]="'/meals'">Meals</button>
+        <button [routerLink]="'/history'">History</button>
+        <button class="profile-icon">{{ initial }}</button>
+      </nav>
     }
   </div>
 </header>

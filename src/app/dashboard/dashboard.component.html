@@ -1,0 +1,53 @@
+<app-header></app-header>
+
+<section>
+  <h2>Dashboard</h2>
+
+  @if (metrics) {
+    <div class="progress-bar">
+      <div>
+        <div>Daily Goals</div>
+        <div>75%</div>
+      </div>
+      <div class="outer-bar">
+        <div class="inner-bar-normal" [style.width.%]="75">-</div>
+      </div>
+    </div>
+
+    <div class="metrics-container">
+      <div class="metrics-data-container">
+        <p>Current Weight</p>
+        <p><b>100 kg</b></p>
+      </div>
+      <div class="metrics-data-container">
+        <p>Daily Calorie Intake</p>
+        <p><b>2000 kcal</b></p>
+      </div>
+    </div>
+
+    <div class="metrics-container">
+      <div class="metrics-data-container">
+        <p>Protein</p>
+        <p><b>40 kg</b></p>
+      </div>
+      <div class="metrics-data-container">
+        <p>Carbs</p>
+        <p><b>30 kg</b></p>
+      </div>
+      <div class="metrics-data-container">
+        <p>Fat</p>
+        <p><b>30 kg</b></p>
+      </div>
+    </div>
+
+    <div>
+      <h3>Weight Track</h3>
+      <div class="weight-track-container">
+        <app-weight-track
+          [days]="metrics.days"
+          [weights]="metrics.weights"
+        ></app-weight-track>
+      </div>
+    </div>
+  }
+</section>

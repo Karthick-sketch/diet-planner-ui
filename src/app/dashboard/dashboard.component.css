@@ -1,0 +1,58 @@
+section {
+  max-width: 60rem;
+  margin: auto;
+}
+
+.progress-bar {
+  margin-bottom: 1rem;
+}
+
+.progress-bar div:first-child {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.outer-bar {
+  width: 100%;
+  background-color: #E8EEF2;
+  border-radius: 10px;
+}
+
+.inner-bar-normal {
+  color: transparent;
+  background-color: #4591DF;
+  border-radius: 10px;
+}
+
+.metrics-data-container {
+  margin-top: 1rem;
+  padding: 1rem 1rem 1rem;
+  background-color: #E8EEF2;
+  border-radius: 0.5rem;
+}
+
+.metrics-data-container p:first-child {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.metrics-data-container p:last-child {
+  margin: 0;
+}
+
+.metrics-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.metrics-container .metrics-data-container {
+  flex: 1;
+}
+
+.weight-track-container {
+  width: 70%;
+  margin: 1rem auto 0 auto;
+}

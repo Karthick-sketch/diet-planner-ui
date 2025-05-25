@@ -18,8 +18,8 @@ export class DietPlanService {
     return this.http.get<DietPlanModel[]>(`${this.basePath}/list`);
   }
 
-  getDietPlan(id: string) {
-    return this.http.get<DietPlanModel>(`${this.basePath}/${id}`);
+  getDietPlan() {
+    return this.http.get<DietPlanModel>(this.basePath);
   }
 
   addDietPlan(dietPlanDTO: DietPlanDTO) {
@@ -46,9 +46,7 @@ export class DietPlanService {
     );
   }
 
-  getMetrics(dietPlanId: string) {
-    return this.http.get<MetricsModel>(
-      `${this.basePath}/metrics/${dietPlanId}`,
-    );
+  getMetrics() {
+    return this.http.get<MetricsModel>(`${this.basePath}/metrics`);
   }
 }

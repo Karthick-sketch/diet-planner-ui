@@ -85,16 +85,6 @@
         "
       ></ng-container>
     </section>
-    <app-ai-food-suggest></app-ai-food-suggest>
-    <section>
-      <h2>Weight Track</h2>
-      @if (metrics) {
-        <app-weight-track
-          [days]="metrics.days"
-          [weights]="metrics.weights"
-        ></app-weight-track>
-      }
-    </section>
   </div>
 }
 
