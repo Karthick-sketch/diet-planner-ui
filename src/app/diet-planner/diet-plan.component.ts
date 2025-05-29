@@ -1,12 +1,5 @@
-import {
-  Component,
-  EmbeddedViewRef,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DietPlanService } from './diet-plan-service';
@@ -15,17 +8,12 @@ import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
 import { MealKcalDTO } from './dto/meal-kcal.dto';
 import { MacrosDTO } from './dto/macros.dto';
-import { MealCategoriesConstants } from './constants/meal-categories.constants';
 
 @Component({
   selector: 'app-diet-plan',
   templateUrl: './diet-plan.component.html',
   styleUrl: './diet-plan.component.css',
-  imports: [
-    NgTemplateOutlet,
-    FormsModule,
-    HeaderComponent,
-  ],
+  imports: [NgTemplateOutlet, FormsModule, HeaderComponent],
 })
 export class DietPlanComponent implements OnInit {
   dietPlan!: DietPlanModel;
@@ -33,14 +21,8 @@ export class DietPlanComponent implements OnInit {
   meals!: MealKcalDTO;
   kcalPercentage!: number;
 
-  @ViewChild('addKcalWindow')
-  addKcalWindow!: TemplateRef<any>;
-
-  private embeddedViewRef: EmbeddedViewRef<any> | undefined;
-
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private viewContainerRef: ViewContainerRef,
     private dietPlanService: DietPlanService,
   ) {}
@@ -70,33 +52,8 @@ export class DietPlanComponent implements OnInit {
     });
   }
 
-  openAddKcalWindow(category: string) {
-    this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(
-      this.addKcalWindow,
-      {
-        category: category,
-        macros: this.getByCategory(category.toLowerCase()),
-      },
-    );
-  }
-
-  private getByCategory(category: string) {
-    let macros = undefined;
-    if (category === MealCategoriesConstants.BREAKFAST) {
-      macros = this.meals.breakfast;
-    } else if (category === MealCategoriesConstants.LUNCH) {
-      macros = this.meals.lunch;
-    } else if (category === MealCategoriesConstants.SNACK) {
-      macros = this.meals.snack;
-    } else if (category === MealCategoriesConstants.DINNER) {
-      macros = this.meals.dinner;
-    }
-    return macros;
-  }
-
   closeAddKcalWindow() {
     this.viewContainerRef.clear();
-    this.embeddedViewRef = undefined;
   }
 
   updateKcal(category: string, macros: MacrosDTO) {

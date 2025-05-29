@@ -1,11 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
- font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 button {
   cursor: pointer;
   background: none;
   border: none;
+}
+
+.primary-bg-color {
+  background-color: #4591df;
+}
+
+.secondary-bg-color {
+  background-color: #e8eef2;
+}
+
+.sub-text {
+  font-size: 0.85rem;
+  color: gray;
+}
+
+.input-field {
+  width: 25%;
+  padding: 0.75rem;
+  border: 1px solid #dce1e4;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: #4591df;
+  outline: none;
 }

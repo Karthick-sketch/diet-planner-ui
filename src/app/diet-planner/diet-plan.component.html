@@ -1,15 +1,19 @@
 <app-header></app-header>
 
 @if (dietPlan && dietPlanTrack) {
-  <div>
-    <h1>{{ dietPlan.title }}</h1>
+  <div class="macros-log-container">
+    <div>
+      <h2>Today's Macronutrients Log</h2>
+      <p class="sub-text">Track your macronutrient intake by meal for a balance diet.</p>
+    </div>
     <section>
-      <h2>Daily Summary</h2>
-      <div>
-        <span>Today Weight</span>
-        <input type="number" [(ngModel)]="dietPlanTrack.weight" />
-        <span>kg</span>
-        <button (click)="addWeight()">Update</button>
+      <h3>Daily Summary</h3>
+      <div class="weight-track-container">
+        <div>
+          <p>Current Weight (kg)</p>
+          <input type="number" class="input-field" [(ngModel)]="dietPlanTrack.weight" />
+        </div>
+        <button (click)="addWeight()">Update Weight</button>
       </div>
       <p>
         Calories {{ dietPlanTrack.deficit.taken }} /
@@ -44,105 +48,71 @@
           </div>
         </div>
       } @else {
-        <div class="outer-bar">
-          <div class="inner-bar-normal" [style.width.%]="kcalPercentage">-</div>
+        <div class="outer-bar secondary-bg-color">
+          <div
+            class="inner-bar-normal primary-bg-color"
+            [style.width.%]="kcalPercentage"
+          >
+            -
+          </div>
         </div>
       }
     </section>
     <section>
-      <h2>Today's Meals</h2>
+      <h3>Intake</h3>
       <ng-container
         *ngTemplateOutlet="
           macrosTrack;
-          context: {
-            category: 'Breakfast',
-            protein: meals.breakfast.protein,
-            carbs: meals.breakfast.carbs,
-            fat: meals.breakfast.fat,
-          }
+          context: { category: 'Breakfast', macros: meals.breakfast }
         "
       ></ng-container>
       <ng-container
         *ngTemplateOutlet="
           macrosTrack;
-          context: {
-            category: 'Lunch',
-            protein: meals.lunch.protein,
-            carbs: meals.lunch.carbs,
-            fat: meals.lunch.fat,
-          }
+          context: { category: 'Lunch', macros: meals.lunch }
         "
       ></ng-container>
       <ng-container
         *ngTemplateOutlet="
           macrosTrack;
-          context: {
-            category: 'Dinner',
-            protein: meals.dinner.protein,
-            carbs: meals.dinner.carbs,
-            fat: meals.dinner.fat,
-          }
+          context: { category: 'Snack', macros: meals.snack }
+        "
+      ></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          macrosTrack;
+          context: { category: 'Dinner', macros: meals.dinner }
         "
       ></ng-container>
     </section>
   </div>
 }
 
-<ng-template
-  #macrosTrack
-  let-category="category"
-  let-protein="protein"
-  let-carbs="carbs"
-  let-fat="fat"
->
+<ng-template #macrosTrack let-category="category" let-macros="macros">
   <div class="meal">
-    <div>{{ category }}</div>
-    <button (click)="openAddKcalWindow(category)">Update</button>
+    <b>{{ category }}</b>
   </div>
   <div class="macros">
     <div>
-      <p>Proteins</p>
-      <p>{{ protein.taken }} / {{ protein.total }} g</p>
+      <p>
+        Proteins <span>(Required {{ macros.protein.total }}g)</span>
+      </p>
+      <input type="number" class="input-field" [(ngModel)]="macros.protein.taken" />
     </div>
     <div>
-      <p>Carbs</p>
-      <p>{{ carbs.taken }} / {{ carbs.total }} g</p>
+      <p>
+        Carbohydrates <span>(Required {{ macros.carbs.total }}g)</span>
+      </p>
+      <input type="number" class="input-field" [(ngModel)]="macros.carbs.taken" />
     </div>
     <div>
-      <p>Fat</p>
-      <p>{{ fat.taken }} / {{ fat.total }} g</p>
+      <p>
+        Fat <span>(Required {{ macros.fat.total }}g)</span>
+      </p>
+      <input type="number" class="input-field" [(ngModel)]="macros.fat.taken" />
     </div>
   </div>
-</ng-template>
-
-<ng-template #addKcalWindow let-category="category" let-macros="macros">
-  <div class="overlay-style">
-    <div class="popup-style">
-      <h3>Add {{ category }}</h3>
-      <div>
-        <label for="add-protein">Protein:</label>
-        <input
-          type="number"
-          name="add-protein"
-          [(ngModel)]="macros.protein.taken"
-        />
-      </div>
-      <div>
-        <label for="add-carbs">Carbs:</label>
-        <input
-          type="number"
-          name="add-carbs"
-          [(ngModel)]="macros.carbs.taken"
-        />
-      </div>
-      <div>
-        <label for="add-fat">Fat:</label>
-        <input type="number" name="add-fat" [(ngModel)]="macros.fat.taken" />
-      </div>
-      <div>
-        <button (click)="closeAddKcalWindow()">Cancel</button>
-        <button (click)="updateKcal(category, macros)">Add</button>
-      </div>
-    </div>
+  <div class="btn-container">
+    <button (click)="updateKcal(category, macros)">Update</button>
   </div>
 </ng-template>

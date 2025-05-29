@@ -23,14 +23,14 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/diet-plans']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
   submit() {
     if (this.user.username && this.user.password) {
       this.authService.signup(this.user).subscribe(() => {
-        this.router.navigate(['/diet-plans']);
+        this.router.navigate(['/dashboard']);
       });
     }
   }

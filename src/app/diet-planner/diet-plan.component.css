@@ -1,22 +1,32 @@
-h2 {
-  color: #4e4e4e;
+.macros-log-container {
+  max-width: 60rem;
+  margin: auto;
+}
+
+.weight-track-container button {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  color: white;
+  background-color: #4591df;
+  border: none;
+  border-radius: 1rem;
 }
 
 .outer-bar {
   width: 100%;
-  background-color: #dfdfdf;
   border-radius: 10px;
 }
 
 .inner-bar-normal {
   color: transparent;
-  background-color: teal;
   border-radius: 10px;
 }
 
 .inner-bar-warning {
-  color: white;
   width: 100%;
+  color: white;
   background-color: #ffcc00;
   border-radius: 10px;
 }
@@ -52,44 +62,36 @@ h2 {
   justify-content: space-between;
 }
 
-.macros {
+.inner-bar-warning div:last-child {
+  padding-right: 0.25rem;
+}
+
+.inner-bar-danger span:first-child {
+  padding-left: 0.25rem;
+}
+
+.inner-bar-danger span:last-child {
+  padding-right: 0.25rem;
+}
+
+.intake {
+  width: 100%;
+}
+
+.macros span {
+  font-size: 0.8rem;
+}
+
+.btn-container {
   display: flex;
-  justify-content: space-between;
-  padding: 0 1rem;
+  justify-content: flex-end;
 }
 
-.macros > div {
-  text-align: center;
-}
-
-.meal {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #dfdfdf;
-}
-
-.overlay-style {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.popup-style {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-}
-
-.popup-style > div:first-child {
-  font-size: 1.25rem;
-  font-weight: bold;
+.btn-container button {
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  color: white;
+  background-color: #4591df;
+  border: none;
+  border-radius: 1rem;
 }
