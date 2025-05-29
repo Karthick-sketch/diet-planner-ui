@@ -1,39 +1,48 @@
 <app-header></app-header>
 
 <section>
-  <h2>Smart Suggestions</h2>
-  <div class="suggestions">
-    <button (click)="suggestFood()">
-      <span>Suggest me foods for Breakfast</span>
-      <img src="right.svg" alt="right-button" />
-    </button>
-    <button (click)="suggestFood()">
-      <span>Suggest me foods for Lunch</span>
-      <img src="right.svg" alt="right-button" />
-    </button>
-    <button (click)="suggestFood()">
-      <span>Suggest me foods for Dinner</span>
-      <img src="right.svg" alt="right-button" />
-    </button>
+  <div>
+    <h2>AI Food Suggestions</h2>
+    <p class="sub-text">
+      Based on your goals and current intake, here are some recommendations.
+    </p>
   </div>
-</section>
-
-<ng-template #suggestFoodWindow let-suggestFoods="suggestFoods">
-  <div class="overlay-style">
-    <div class="popup-style">
-      @for (suggestFood of suggestFoods; track $index) {
-        <div>
-          <h3>{{ suggestFood.name }}</h3>
-          <p><b>Estimated calories</b> ~{{ suggestFood.calories.total }}</p>
-          <p><b>Macronutrients</b></p>
-          <ul>
-            <li>Protein - {{ suggestFood.macronutrients.protein.total }}g</li>
-            <li>Carbs - {{ suggestFood.macronutrients.carbs.total }}g</li>
-            <li>Fat - {{ suggestFood.macronutrients.fat.total }}g</li>
-          </ul>
-          <p><b>Description:</b> {{ suggestFood.description }}</p>
-        </div>
+  <div class="filter-container">
+    <div class="meal-filter">
+      @for (filter of filters.mealFilters; track $index) {
+        <button
+          [class.selected]="filter === selected.mealFilter"
+          (click)="addMealFilter(filter)"
+        >
+          {{ filter }}
+        </button>
+      }
+    </div>
+    <div class="food-filter">
+      @for (filter of filters.foodFilters; track $index) {
+        <button
+          [class.selected]="filter === selected.foodFilter"
+          (click)="addFoodFilter(filter)"
+        >
+          {{ filter }}
+        </button>
       }
     </div>
   </div>
-</ng-template>
+  <button class="suggest-btn" (click)="suggest()">Suggest Food</button>
+
+  @for (suggestFood of aiFoodSuggests; track $index) {
+    <div class="food-suggest">
+      <p>
+        <b>{{ suggestFood.name }}</b>
+      </p>
+      <p class="sub-text">{{ suggestFood.description }}</p>
+      <div class="macronutrients">
+        <p>Calories ~{{ suggestFood.calories.total }}</p>
+        <p>Protein ~{{ suggestFood.macronutrients.protein.total }}g</p>
+        <p>Carbs ~{{ suggestFood.macronutrients.carbs.total }}g</p>
+        <p>Fat ~{{ suggestFood.macronutrients.fat.total }}g</p>
+      </div>
+    </div>
+  }
+</section>

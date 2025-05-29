@@ -4,17 +4,23 @@
   <div class="macros-log-container">
     <div>
       <h2>Today's Macronutrients Log</h2>
-      <p class="sub-text">Track your macronutrient intake by meal for a balance diet.</p>
+      <p class="sub-text">
+        Track your macronutrient intake by meal for a balance diet.
+      </p>
     </div>
     <section>
       <h3>Daily Summary</h3>
-      <div class="weight-track-container">
-        <div>
-          <p>Current Weight (kg)</p>
-          <input type="number" class="input-field" [(ngModel)]="dietPlanTrack.weight" />
-        </div>
-        <button (click)="addWeight()">Update Weight</button>
+      <div>
+        <p>Current Weight (kg)</p>
+        <input
+          type="number"
+          class="input-field"
+          [(ngModel)]="dietPlanTrack.weight"
+        />
       </div>
+      <button class="update-weight-btn" (click)="addWeight()">
+        Update Weight
+      </button>
       <p>
         Calories {{ dietPlanTrack.deficit.taken }} /
         {{ dietPlanTrack.deficit.total }}
@@ -97,13 +103,21 @@
       <p>
         Proteins <span>(Required {{ macros.protein.total }}g)</span>
       </p>
-      <input type="number" class="input-field" [(ngModel)]="macros.protein.taken" />
+      <input
+        type="number"
+        class="input-field"
+        [(ngModel)]="macros.protein.taken"
+      />
     </div>
     <div>
       <p>
         Carbohydrates <span>(Required {{ macros.carbs.total }}g)</span>
       </p>
-      <input type="number" class="input-field" [(ngModel)]="macros.carbs.taken" />
+      <input
+        type="number"
+        class="input-field"
+        [(ngModel)]="macros.carbs.taken"
+      />
     </div>
     <div>
       <p>

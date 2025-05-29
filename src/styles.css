@@ -19,6 +19,7 @@ button {
 }
 
 .sub-text {
+  padding-left: 0.15rem;
   font-size: 0.85rem;
   color: gray;
 }

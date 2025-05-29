@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AIFoodSuggestModel } from './model/ai-food-suggest.model';
+import { FilterDto } from './dto/filter.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,10 @@ import { AIFoodSuggestModel } from './model/ai-food-suggest.model';
 export class AIFoodSuggestService {
   constructor(private httpClient: HttpClient) {}
 
-  suggestFoods() {
-    return this.httpClient.get<AIFoodSuggestModel[]>('/ai-food-suggest');
+  suggestFoods(filter: FilterDto) {
+    return this.httpClient.post<AIFoodSuggestModel[]>(
+      '/ai-food-suggest',
+      filter,
+    );
   }
 }
