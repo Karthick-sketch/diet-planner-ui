@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DietPlanService } from './diet-plan-service';
-import { HeaderComponent } from '../header/header.component';
 import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
 import { MealKcalDTO } from './dto/meal-kcal.dto';
@@ -13,7 +12,7 @@ import { MacrosDTO } from './dto/macros.dto';
   selector: 'app-diet-plan',
   templateUrl: './diet-plan.component.html',
   styleUrl: './diet-plan.component.css',
-  imports: [NgTemplateOutlet, FormsModule, HeaderComponent],
+  imports: [NgTemplateOutlet, FormsModule],
 })
 export class DietPlanComponent implements OnInit {
   dietPlan!: DietPlanModel;
@@ -46,7 +45,7 @@ export class DietPlanComponent implements OnInit {
       },
       error: (err) => {
         if (err.status === 404) {
-          this.router.navigate(['/not-found']);
+          this.router.navigate(['/no-active-plan']);
         }
       },
     });

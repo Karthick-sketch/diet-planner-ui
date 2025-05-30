@@ -10,6 +10,18 @@ button {
   border: none;
 }
 
+.primary-btn {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: white;
+  background-color: #4591df;
+  border: none;
+  border-radius: 1rem;
+}
+
 .primary-bg-color {
   background-color: #4591df;
 }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +9,20 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class HeaderComponent implements OnInit {
-  @Input() isLogin = false;
-  @Input() isSignup = false;
   @Input() initial = 'k';
+
+  isLogin = false;
+  isSignup = false;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.initial = this.initial.toUpperCase();
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.isLogin = event.url === '/login';
+        this.isSignup = event.url === '/signup';
+      });
   }
 }

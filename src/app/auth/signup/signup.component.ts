@@ -3,12 +3,11 @@ import { UserSignupDTO } from '../dto/user-signup.dto';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  imports: [FormsModule, RouterLink, HeaderComponent],
+  imports: [FormsModule, RouterLink],
   styleUrl: './signup.component.css',
 })
 export class SignupComponent implements OnInit {
