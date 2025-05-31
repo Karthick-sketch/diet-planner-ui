@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DropdownModel } from '../../shared/model/dropdown.model';
+import { DietPlanService } from '../diet-plan-service';
 import { TimePeriodDTO } from '../dto/time-period.dto';
 import { DietPlanDTO } from '../dto/diet-plan.dto';
+import { Plan } from '../enum/plan.enum';
 import { Gender } from '../enum/gender.enum';
 import { Goal } from '../enum/goal.enum';
 import { Activity } from '../enum/activity.enum';
-import { FoodType } from '../enum/food-type.enum';
-import { DietPlanService } from '../diet-plan-service';
-import { DietPlanModel } from '../model/diet-plan.model';
+import { DropdownModel } from '../../shared/model/dropdown.model';
 
 @Component({
   selector: 'app-diet-plan-form',
@@ -21,8 +20,11 @@ export class DietPlanFormComponent implements OnInit {
   dietPlanDTO!: DietPlanDTO;
   timePeriodDTO!: TimePeriodDTO;
 
-  foodFilters = '';
-
+  plans = [
+    new DropdownModel('Weight Loss', Plan.WEIGHT_LOSS),
+    new DropdownModel('Weight Gain', Plan.WEIGHT_GAIN),
+    new DropdownModel('Muscle Gain', Plan.MUSCLE_GAIN),
+  ];
   genders = [
     new DropdownModel('Male', Gender.MALE),
     new DropdownModel('Female', Gender.FEMALE),
@@ -39,11 +41,14 @@ export class DietPlanFormComponent implements OnInit {
     new DropdownModel('Hard', Activity.HARD),
     new DropdownModel('Athlete', Activity.ATHLETE),
   ];
-  foodTypes = [
-    new DropdownModel('Vegetarian', FoodType.VEGETARIAN),
-    new DropdownModel('Non-vegetarian', FoodType.NON_VEGETARIAN),
-    new DropdownModel('Vegan', FoodType.VEGAN),
-  ];
+  timestamps = ['Days', 'Weeks', 'Months'];
+  selected = {
+    plan: Plan.WEIGHT_LOSS,
+    gender: Gender.MALE,
+    goal: Goal.MILD,
+    activity: Activity.SEDENTARY,
+    timestamp: 'Days',
+  };
 
   constructor(
     private router: Router,
@@ -51,22 +56,22 @@ export class DietPlanFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dietPlanDTO = new DietPlanDTO();
-    this.timePeriodDTO = new TimePeriodDTO();
+    this.dietPlanService.isThereAnyActivePlans().subscribe((value) => {
+      if (value) {
+        this.router.navigate(['/']);
+      } else {
+        this.dietPlanDTO = new DietPlanDTO();
+        this.timePeriodDTO = new TimePeriodDTO();
+      }
+    });
   }
 
-  cancel() {
-    this.router.navigate(['/']);
-  }
-
-  addDietPlan() {
+  createDietPlan() {
     if (this.validateFields()) {
-      this.dietPlanDTO.timePeriod = this.timePeriodDTO;
-      this.dietPlanDTO.foodFilters = [this.foodFilters];
       this.dietPlanService
-        .addDietPlan(this.dietPlanDTO)
-        .subscribe((dietPlan: DietPlanModel) => {
-          this.router.navigate([`/diet-plan/${dietPlan.id}`]);
+        .createDietPlan(this.mapSelected())
+        .subscribe(() => {
+          this.router.navigate(['/']);
         });
     } else {
       console.log(this.dietPlanDTO);
@@ -77,16 +82,50 @@ export class DietPlanFormComponent implements OnInit {
     return (
       this.dietPlanDTO.age &&
       this.dietPlanDTO.title &&
-      this.dietPlanDTO.description &&
       this.dietPlanDTO.height &&
-      this.dietPlanDTO.gender &&
       this.dietPlanDTO.weight &&
-      this.dietPlanDTO.goal &&
       this.dietPlanDTO.finalGoal &&
-      this.dietPlanDTO.activity &&
-      this.dietPlanDTO.foodType &&
-      this.timePeriodDTO.duration &&
-      this.timePeriodDTO.timestamp
+      this.timePeriodDTO.duration
     );
+  }
+
+  private mapSelected() {
+    this.timePeriodDTO.timestamp = this.selected.timestamp;
+    this.dietPlanDTO.timePeriod = this.timePeriodDTO;
+    this.dietPlanDTO.plan = this.selected.plan;
+    this.dietPlanDTO.gender = this.selected.gender;
+    this.dietPlanDTO.goal = this.selected.goal;
+    this.dietPlanDTO.activity = this.selected.activity;
+    return this.dietPlanDTO;
+  }
+
+  selectDietPlan(plan: Plan) {
+    this.selected.plan = plan;
+  }
+
+  selectGender(gender: Gender) {
+    this.selected.gender = gender;
+  }
+
+  selectGoal(goal: Goal) {
+    this.selected.goal = goal;
+  }
+
+  selectActivity(activity: Activity) {
+    this.selected.activity = activity;
+  }
+
+  selectTimestamp(timestamp: string) {
+    this.selected.timestamp = timestamp;
+  }
+
+  getFinalGoalPlaceholder() {
+    let plan = 'weight loss';
+    if (this.selected.plan === Plan.WEIGHT_GAIN) {
+      plan = 'weight gain';
+    } else if (this.selected.plan === Plan.MUSCLE_GAIN) {
+      plan = 'muscle gain';
+    }
+    return `Target ${plan} in kilograms`;
   }
 }

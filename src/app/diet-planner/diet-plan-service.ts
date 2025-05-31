@@ -22,7 +22,7 @@ export class DietPlanService {
     return this.http.get<DietPlanModel>(this.basePath);
   }
 
-  addDietPlan(dietPlanDTO: DietPlanDTO) {
+  createDietPlan(dietPlanDTO: DietPlanDTO) {
     return this.http.post<DietPlanModel>(this.basePath, dietPlanDTO);
   }
 
@@ -48,5 +48,9 @@ export class DietPlanService {
 
   getMetrics() {
     return this.http.get<MetricsModel>(`${this.basePath}/metrics`);
+  }
+
+  isThereAnyActivePlans() {
+    return this.http.get<boolean>(`${this.basePath}/active-plans`);
   }
 }

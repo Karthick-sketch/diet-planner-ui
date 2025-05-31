@@ -30,7 +30,7 @@ export class DietPlansListComponent implements OnInit {
   }
 
   addDietPlan(dietPlanDTO: DietPlanDTO) {
-    this.dietPlanService.addDietPlan(dietPlanDTO).subscribe();
+    this.dietPlanService.createDietPlan(dietPlanDTO).subscribe();
   }
 
   openDietPlanForm() {

@@ -2,12 +2,12 @@ import { Gender } from '../enum/gender.enum';
 import { Goal } from '../enum/goal.enum';
 import { TimePeriodDTO } from './time-period.dto';
 import { Activity } from '../enum/activity.enum';
-import { FoodType } from '../enum/food-type.enum';
+import { Plan } from '../enum/plan.enum';
 
 export class DietPlanDTO {
   id!: string;
   title!: string;
-  description!: string;
+  plan!: Plan;
   age!: number;
   gender!: Gender;
   height!: number;
@@ -16,6 +16,4 @@ export class DietPlanDTO {
   finalGoal!: number;
   timePeriod!: TimePeriodDTO;
   activity!: Activity;
-  foodType!: FoodType;
-  foodFilters!: string[];
 }

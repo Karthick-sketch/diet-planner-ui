@@ -1,0 +1,32 @@
+section {
+  max-width: 30rem;
+  margin: auto;
+}
+
+.input-field {
+  width: 84% !important;
+}
+
+.multi-field {
+  margin-top: 1rem;
+}
+
+.multi-field button {
+  margin-right: 0.6rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  background-color: #e8eef2;
+  border: none;
+  border-radius: 1rem;
+}
+
+.selected {
+  color: white;
+  background-color: teal !important;
+}
+
+.primary-btn {
+  width: 90% !important;
+  margin-top: 1.5rem !important;
+}
