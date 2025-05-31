@@ -3,12 +3,13 @@ import { WeightTrackComponent } from './weight-track/weight-track.component';
 import { DietPlanService } from '../diet-planner/diet-plan-service';
 import { MetricsModel } from '../diet-planner/model/metrics.model';
 import { Router } from '@angular/router';
+import { LimitReachPipe } from './pipe/limitreach.pipe';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
-  imports: [WeightTrackComponent],
+  imports: [WeightTrackComponent, LimitReachPipe],
 })
 export class DashboardComponent implements OnInit {
   metrics!: MetricsModel;
@@ -16,11 +17,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dietPlanService: DietPlanService,
     private router: Router,
-  ) {
-    // this.metrics = new MetricsModel();
-    // this.metrics.days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    // this.metrics.weights = [100, 99, 98, 99, 98, 97, 96];
-  }
+  ) {}
 
   ngOnInit() {
     this.dietPlanService.getMetrics().subscribe({

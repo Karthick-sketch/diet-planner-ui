@@ -1,39 +1,54 @@
 @if (metrics) {
   <section>
-    <h2>Dashboard</h2>
+    <h2>{{ metrics.title }}</h2>
     <div class="progress-bar">
       <div>
         <div>Daily Goals</div>
-        <div>75%</div>
+        <div>{{ metrics.taken | limitreach: false }}%</div>
       </div>
       <div class="outer-bar">
-        <div class="inner-bar-normal" [style.width.%]="75">-</div>
+        <div
+          class="inner-bar-normal"
+          [style.width.%]="metrics.taken | limitreach: true"
+        >
+          -
+        </div>
       </div>
     </div>
 
     <div class="metrics-container">
       <div class="metrics-data-container">
         <p>Current Weight</p>
-        <p><b>100 kg</b></p>
+        <p>
+          <b>{{ metrics.currentWeight }} kg</b>
+        </p>
       </div>
       <div class="metrics-data-container">
         <p>Daily Calorie Intake</p>
-        <p><b>2000 kcal</b></p>
+        <p>
+          <b>{{ metrics.deficit }} kcal</b>
+        </p>
       </div>
     </div>
 
     <div class="metrics-container">
       <div class="metrics-data-container">
         <p>Protein</p>
-        <p><b>40 kg</b></p>
+        <p>
+          <b>{{ metrics.protein }} g</b>
+        </p>
       </div>
       <div class="metrics-data-container">
-        <p>Carbs</p>
-        <p><b>30 kg</b></p>
+        <p>Carbohydrates</p>
+        <p>
+          <b>{{ metrics.carbs }} g</b>
+        </p>
       </div>
       <div class="metrics-data-container">
         <p>Fat</p>
-        <p><b>30 kg</b></p>
+        <p>
+          <b>{{ metrics.fat }} g</b>
+        </p>
       </div>
     </div>
 

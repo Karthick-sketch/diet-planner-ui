@@ -3,6 +3,10 @@ section {
   margin: auto;
 }
 
+h2 {
+  text-transform: capitalize;
+}
+
 .progress-bar {
   margin-bottom: 1rem;
 }
