@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AIFoodSuggestModel } from './model/ai-food-suggest.model';
 import { AIFoodSuggestService } from './ai-food-suggest.service';
 import { FilterDto } from './dto/filter.dto';
@@ -8,20 +8,21 @@ import { FilterDto } from './dto/filter.dto';
   templateUrl: './ai-food-suggest.component.html',
   styleUrl: './ai-food-suggest.component.css',
 })
-export class AIFoodSuggestComponent implements OnInit {
+export class AIFoodSuggestComponent {
   filters = {
     mealFilters: ['Breakfast', 'Lunch', 'Snack', 'Dinner'],
     foodFilters: ['Vegetarian', 'Non-vegetarian', 'Low-carb'],
+    cuisineFilters: ['Indian', 'Chinese', 'Japanese', 'Thai'],
   };
-  selected: FilterDto = { mealFilter: 'Breakfast', foodFilter: 'Vegetarian' };
+  selected: FilterDto = {
+    mealFilter: 'Breakfast',
+    foodFilter: 'Vegetarian',
+    cuisineFilter: 'Indian',
+  };
 
   aiFoodSuggests!: AIFoodSuggestModel[];
 
   constructor(private aiFoodSuggestService: AIFoodSuggestService) {}
-
-  ngOnInit() {
-    this.suggest();
-  }
 
   addMealFilter(filter: string) {
     this.selected.mealFilter = filter;
@@ -29,6 +30,10 @@ export class AIFoodSuggestComponent implements OnInit {
 
   addFoodFilter(filter: string) {
     this.selected.foodFilter = filter;
+  }
+
+  addCuisineFilter(filter: string) {
+    this.selected.cuisineFilter = filter;
   }
 
   suggest() {

@@ -26,6 +26,16 @@
         </button>
       }
     </div>
+    <div class="cuisine-filter">
+      @for (filter of filters.cuisineFilters; track $index) {
+        <button
+          [class.selected]="filter === selected.cuisineFilter"
+          (click)="addCuisineFilter(filter)"
+        >
+          {{ filter }}
+        </button>
+      }
+    </div>
   </div>
   <button class="suggest-btn" (click)="suggest()">Suggest Food</button>
 
