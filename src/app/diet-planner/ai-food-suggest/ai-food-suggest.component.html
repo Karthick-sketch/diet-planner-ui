@@ -2,7 +2,8 @@
   <div>
     <h2>AI Food Suggestions</h2>
     <p class="sub-text">
-      Based on your goals and current intake, here are some recommendations.
+      AI-powered food suggestions tailored by meal type, dietary preference, and
+      global cuisine.
     </p>
   </div>
   <div class="filter-container">
@@ -39,18 +40,44 @@
   </div>
   <button class="suggest-btn" (click)="suggest()">Suggest Food</button>
 
-  @for (suggestFood of aiFoodSuggests; track $index) {
-    <div class="food-suggest">
-      <p>
-        <b>{{ suggestFood.name }}</b>
-      </p>
-      <p class="sub-text">{{ suggestFood.description }}</p>
-      <div class="macronutrients">
-        <p>Calories ~{{ suggestFood.calories.total }}</p>
-        <p>Protein ~{{ suggestFood.macronutrients.protein.total }}g</p>
-        <p>Carbs ~{{ suggestFood.macronutrients.carbs.total }}g</p>
-        <p>Fat ~{{ suggestFood.macronutrients.fat.total }}g</p>
-      </div>
+  @if (isLoading) {
+    <div class="loader">
+      <div class="line"></div>
     </div>
+  } @else if (isError) {
+    <div class="err-msg">Something went wrong. Please try again.</div>
+  } @else {
+    @for (suggestFood of aiFoodSuggests; track $index) {
+      <div class="food-suggest">
+        <p>
+          <b>{{ $index + 1 }}) {{ suggestFood.name }}</b>
+        </p>
+        <p class="sub-text">{{ suggestFood.description }}</p>
+        <div class="macronutrients">
+          <p>
+            Calories
+            <span class="sub-text">~{{ suggestFood.calories.total }}</span>
+          </p>
+          <p>
+            Protein
+            <span class="sub-text"
+              >~{{ suggestFood.macronutrients.protein.total }}g</span
+            >
+          </p>
+          <p>
+            Carbs
+            <span class="sub-text"
+              >~{{ suggestFood.macronutrients.carbs.total }}g</span
+            >
+          </p>
+          <p>
+            Fat
+            <span class="sub-text"
+              >~{{ suggestFood.macronutrients.fat.total }}g</span
+            >
+          </p>
+        </div>
+      </div>
+    }
   }
 </section>

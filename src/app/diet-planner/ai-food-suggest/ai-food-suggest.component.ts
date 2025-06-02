@@ -19,6 +19,8 @@ export class AIFoodSuggestComponent {
     foodFilter: 'Vegetarian',
     cuisineFilter: 'Indian',
   };
+  isLoading = false;
+  isError = false;
 
   aiFoodSuggests!: AIFoodSuggestModel[];
 
@@ -37,10 +39,19 @@ export class AIFoodSuggestComponent {
   }
 
   suggest() {
-    this.aiFoodSuggestService
-      .suggestFoods(this.selected)
-      .subscribe((aiFoodSuggestModel: AIFoodSuggestModel[]) => {
+    this.isLoading = true;
+    this.isError = false;
+    this.aiFoodSuggestService.suggestFoods(this.selected).subscribe({
+      next: (aiFoodSuggestModel: AIFoodSuggestModel[]) => {
         this.aiFoodSuggests = aiFoodSuggestModel;
-      });
+        this.isLoading = false;
+      },
+      error: (err) => {
+        if (err.status === 410) {
+          this.isLoading = false;
+          this.isError = true;
+        }
+      },
+    });
   }
 }
