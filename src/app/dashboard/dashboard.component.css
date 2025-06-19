@@ -20,20 +20,20 @@ h2 {
 
 .outer-bar {
   width: 100%;
-  background-color: #E8EEF2;
+  background-color: #e8eef2;
   border-radius: 10px;
 }
 
 .inner-bar-normal {
   color: transparent;
-  background-color: #4591DF;
+  background-color: #4591df;
   border-radius: 10px;
 }
 
 .metrics-data-container {
   margin-top: 1rem;
   padding: 1rem 1rem 1rem;
-  background-color: #E8EEF2;
+  background-color: #e8eef2;
   border-radius: 0.5rem;
 }
 

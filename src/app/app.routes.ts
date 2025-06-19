@@ -9,6 +9,7 @@ import { DietPlanComponent } from './diet-planner/diet-plan.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AIFoodSuggestComponent } from './diet-planner/ai-food-suggest/ai-food-suggest.component';
 import { NoActiveDietPlanComponent } from './diet-planner/no-active-diet-plan/no-active-diet-plan.component';
+import { DietPlanOverviewComponent } from './diet-planner/diet-plan-overview/diet-plan-overview.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,10 @@ export const routes: Routes = [
     path: 'history',
     component: DietPlansListComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'history/:id',
+    component: DietPlanOverviewComponent,
   },
   {
     path: 'diet-plan-form',

@@ -1,0 +1,12 @@
+<div class="overview-container">
+  @for (plan of plans; track plan.id) {
+    <div class="plan-track">
+      <div class="track-date">{{ plan.date | date: "longDate" }}</div>
+      <div>Weight: {{ plan.weight }}</div>
+      <div>Deficit: {{ plan.deficit.taken }} / {{ plan.deficit.total }}</div>
+      <div>Protein: {{ plan.protein.taken }} / {{ plan.protein.total }}</div>
+      <div>Carbohydrates: {{ plan.carbs.taken }} / {{ plan.carbs.total }}</div>
+      <div>Fat: {{ plan.fat.taken }} / {{ plan.fat.total }}</div>
+    </div>
+  }
+</div>

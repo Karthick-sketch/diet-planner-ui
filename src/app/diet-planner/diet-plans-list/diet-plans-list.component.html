@@ -1,20 +1,10 @@
-<section>
-  <header>
-    <span>Diet Plans</span>
-    <button class="add-plan-btn" (click)="openDietPlanForm()">
-      <img src="add-white.svg" alt="add-diet-plan" />
-      Add Plan
-    </button>
-  </header>
-
-  <div class="container">
-    @for (dietPlan of dietPlans; track dietPlan.id) {
-      <div class="diet-plan">
-        <div class="plan-title">{{ dietPlan.title }}</div>
-        <a [href]="'/diet-plan/' + dietPlan.id" class="button">View Plan</a>
-      </div>
-    } @empty {
-      <p>No available Diet plans.</p>
-    }
-  </div>
-</section>
+<div class="container">
+  @for (dietPlan of dietPlans; track dietPlan.id) {
+    <div class="diet-plan">
+      <div class="plan-title">{{ dietPlan.title }}</div>
+      <a [href]="'/history/' + dietPlan.id" class="button">View Plan</a>
+    </div>
+  } @empty {
+    <p>No available Diet plans.</p>
+  }
+</div>

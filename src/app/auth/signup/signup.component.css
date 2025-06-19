@@ -9,7 +9,6 @@
   width: 100%;
   margin: 2rem auto;
   padding: 2rem 3rem;
-
 }
 
 .signup-container h2 {
@@ -25,7 +24,7 @@
 .field-container input {
   width: 100%;
   padding: 0.75rem;
-  background-color: #E8EEF2;
+  background-color: #e8eef2;
   border: 1px solid transparent;
   border-radius: 8px;
   font-size: 1rem;
@@ -33,14 +32,14 @@
 }
 
 .field-container input:focus {
-  border-color: #4591DF;
+  border-color: #4591df;
   outline: none;
 }
 
 .signup-btn {
   width: 100%;
   padding: 0.8rem;
-  background-color: #4591DF;
+  background-color: #4591df;
   color: #fff;
   font-size: 1rem;
   border: none;
@@ -60,7 +59,7 @@
 }
 
 .login-link a {
-  color: #4591DF;
+  color: #4591df;
   text-decoration: none;
   font-weight: bold;
 }

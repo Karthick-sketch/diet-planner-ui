@@ -25,6 +25,9 @@ export class DietPlansListComponent implements OnInit {
     this.dietPlanService
       .getAllDietPlans()
       .subscribe((dietPlanModels: DietPlanModel[]) => {
+        dietPlanModels.push(dietPlanModels[0]);
+        dietPlanModels.push(dietPlanModels[0]);
+        dietPlanModels.push(dietPlanModels[0]);
         this.dietPlans = dietPlanModels;
       });
   }

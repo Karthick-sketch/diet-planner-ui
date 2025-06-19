@@ -19,7 +19,7 @@ nav {
 .login-btn {
   padding: 0.5rem 1rem;
   color: white;
-  background-color: #4591DF;
+  background-color: #4591df;
   border-radius: 14px;
 }
 
@@ -27,7 +27,7 @@ nav {
   padding: 0.5rem 0.75rem;
   font-size: 1.2rem;
   color: white;
-  background-color: #4591DF;
+  background-color: #4591df;
   border-radius: 50%;
 }
 
@@ -39,6 +39,7 @@ nav {
   background-color: white;
   border: 1px solid #dcdada;
   border-radius: 0.45rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-container button {

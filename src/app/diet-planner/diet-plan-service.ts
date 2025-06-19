@@ -5,6 +5,7 @@ import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
 import { MacrosDTO } from './dto/macros.dto';
 import { MetricsModel } from './model/metrics.model';
+import { DietPlanOverviewModel } from './model/diet-plan-overview.model';
 
 @Injectable({
   providedIn: 'root',
@@ -52,5 +53,11 @@ export class DietPlanService {
 
   isThereAnyActivePlans() {
     return this.http.get<boolean>(`${this.basePath}/active-plans`);
+  }
+
+  getDietPlanOverview(id: string) {
+    return this.http.get<DietPlanOverviewModel[]>(
+      `${this.basePath}/overview/${id}`,
+    );
   }
 }
