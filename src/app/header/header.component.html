@@ -15,7 +15,18 @@
         <button [routerLink]="'/progress'">Progress</button>
         <button [routerLink]="'/meals'">Meals</button>
         <button [routerLink]="'/history'">History</button>
-        <button class="profile-icon">{{ initial }}</button>
+        <div>
+          <button class="profile-icon" (click)="expandProfile()">
+            {{ initial }}
+          </button>
+          @if (isProfileExpanded) {
+            <div class="profile-container">
+              <button>Edit profile</button>
+              <br />
+              <button class="sign-out" (click)="signOut()">Sign Out</button>
+            </div>
+          }
+        </div>
       </nav>
     }
   </div>

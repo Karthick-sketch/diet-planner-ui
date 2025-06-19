@@ -9,7 +9,10 @@ import { UserLoginDTO } from './dto/user-login.dto';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenService,
+  ) {}
 
   signup(userSignupDTO: UserSignupDTO) {
     return this.http.post('/user/register', userSignupDTO);

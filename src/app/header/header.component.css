@@ -30,3 +30,26 @@ nav {
   background-color: #4591DF;
   border-radius: 50%;
 }
+
+.profile-container {
+  position: absolute;
+  top: 3.25rem;
+  right: 0.25rem;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #dcdada;
+  border-radius: 0.45rem;
+}
+
+.profile-container button {
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid #dadada;
+}
+
+.profile-container button:last-child {
+  border: none;
+}
+
+.sign-out {
+  color: #ea0000;
+}
