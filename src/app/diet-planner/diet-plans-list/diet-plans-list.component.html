@@ -1,10 +1,54 @@
-<div class="container">
-  @for (dietPlan of dietPlans; track dietPlan.id) {
-    <div class="diet-plan">
-      <div class="plan-title">{{ dietPlan.title }}</div>
-      <a [href]="'/history/' + dietPlan.id" class="button">View Plan</a>
-    </div>
-  } @empty {
-    <p>No available Diet plans.</p>
+<section>
+  <div>
+    <h2>Diet Plans History</h2>
+    <p class="sub-text">View your past diet plans and track your progress.</p>
+  </div>
+  <div class="diet-plans-list">
+    @for (dietPlan of dietPlans; track dietPlan.id) {
+      <div class="diet-plan">
+        <div class="plan-detail">
+          <div class="plan-title">{{ dietPlan.title }}</div>
+          <ng-container
+            *ngTemplateOutlet="
+              planDetails;
+              context: {
+                plan: dietPlan.plan,
+                goal: dietPlan.finalGoal,
+                timePeriod: dietPlan.timePeriod
+              }
+            "
+          ></ng-container>
+        </div>
+        <a [href]="'/history/' + dietPlan.id" class="view-plan-btn">
+          <img src="right.svg" alt="View Plan" />
+        </a>
+      </div>
+    } @empty {
+      <p>No available Diet plans.</p>
+    }
+  </div>
+</section>
+
+<ng-template
+  #planDetails
+  let-plan="plan"
+  let-goal="goal"
+  let-timePeriod="timePeriod"
+>
+  @if (plan === Plan[Plan.WEIGHT_LOSS]) {
+    <p class="sub-text">
+      Plan: Weight Loss | Goal: Lose {{ goal }} kg | Duration:
+      {{ timePeriod.duration }} {{ timePeriod.timestamp }}
+    </p>
+  } @else if (plan === Plan[Plan.WEIGHT_GAIN]) {
+    <p class="sub-text">
+      Plan: Weight Gain | Goal: Gain {{ goal }} kg | Duration:
+      {{ timePeriod.duration }} {{ timePeriod.timestamp }}
+    </p>
+  } @else if (plan === Plan[Plan.MUSCLE_GAIN]) {
+    <p class="sub-text">
+      Plan: Muscle Gain | Goal: Gain {{ goal }} kg | Duration:
+      {{ timePeriod.duration }} {{ timePeriod.timestamp }}
+    </p>
   }
-</div>
+</ng-template>
