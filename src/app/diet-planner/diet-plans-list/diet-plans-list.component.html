@@ -35,20 +35,16 @@
   let-goal="goal"
   let-timePeriod="timePeriod"
 >
-  @if (plan === Plan[Plan.WEIGHT_LOSS]) {
-    <p class="sub-text">
+  <p class="sub-text">
+    @if (plan === Plan[Plan.WEIGHT_LOSS]) {
       Plan: Weight Loss | Goal: Lose {{ goal }} kg | Duration:
       {{ timePeriod.duration }} {{ timePeriod.timestamp }}
-    </p>
-  } @else if (plan === Plan[Plan.WEIGHT_GAIN]) {
-    <p class="sub-text">
+    } @else if (plan === Plan[Plan.WEIGHT_GAIN]) {
       Plan: Weight Gain | Goal: Gain {{ goal }} kg | Duration:
       {{ timePeriod.duration }} {{ timePeriod.timestamp }}
-    </p>
-  } @else if (plan === Plan[Plan.MUSCLE_GAIN]) {
-    <p class="sub-text">
+    } @else if (plan === Plan[Plan.MUSCLE_GAIN]) {
       Plan: Muscle Gain | Goal: Gain {{ goal }} kg | Duration:
       {{ timePeriod.duration }} {{ timePeriod.timestamp }}
-    </p>
-  }
+    }
+  </p>
 </ng-template>

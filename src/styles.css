@@ -10,6 +10,10 @@ button {
   border: none;
 }
 
+.mb-0 {
+  margin-bottom: 0;
+}
+
 .primary-btn {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;

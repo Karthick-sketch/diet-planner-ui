@@ -1,25 +1,14 @@
-.overview-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+section {
+  max-width: 60rem;
+  margin: auto;
 }
 
 .plan-track {
-  border-bottom: 1px solid #e0e0e0;
-  padding: 1rem 0;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
-.plan-track:last-child {
-  border-bottom: none;
-}
-
-.track-date {
-  font-size: 1rem;
-  font-weight: bold;
+.track-detail > p:last-child {
+  margin-top: 0.5rem !important;
 }

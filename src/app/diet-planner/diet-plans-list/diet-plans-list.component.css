@@ -6,4 +6,13 @@ section {
 .diet-plan {
   display: flex;
   justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.diet-plan:first-child {
+  margin-top: 2rem;
+}
+
+.plan-title {
+  font-size: 1.0625rem;
 }

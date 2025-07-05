@@ -1,12 +1,28 @@
-<div class="overview-container">
-  @for (plan of plans; track plan.id) {
-    <div class="plan-track">
-      <div class="track-date">{{ plan.date | date: "longDate" }}</div>
-      <div>Weight: {{ plan.weight }}</div>
-      <div>Deficit: {{ plan.deficit.taken }} / {{ plan.deficit.total }}</div>
-      <div>Protein: {{ plan.protein.taken }} / {{ plan.protein.total }}</div>
-      <div>Carbohydrates: {{ plan.carbs.taken }} / {{ plan.carbs.total }}</div>
-      <div>Fat: {{ plan.fat.taken }} / {{ plan.fat.total }}</div>
-    </div>
-  }
-</div>
+<section>
+  <div>
+    <h2>Past Tracking Entries</h2>
+    <p class="sub-text">
+      View day-by-day progress from your completed diet plans.
+    </p>
+  </div>
+  <div class="overview-container">
+    @for (plan of plans; track plan.id) {
+      <div class="plan-track">
+        <div class="track-detail">
+          <div class="track-date">{{ plan.date | date : "longDate" }}</div>
+          <p class="sub-text mb-0">
+            Weight: {{ plan.weight }}kg | Calories: {{ plan.tdee }}kcal | Deficit:
+            {{ plan.deficit.taken }}kcal
+          </p>
+          <p class="sub-text">
+            Protein: {{ plan.protein.taken }}g | Carbohydrates:
+            {{ plan.carbs.taken }}g | Fat: {{ plan.fat.taken }}g
+          </p>
+        </div>
+        <a [href]="'/history/' + plan.id" class="view-plan-btn">
+          <img src="right.svg" alt="View Plan" />
+        </a>
+      </div>
+    }
+  </div>
+</section>
