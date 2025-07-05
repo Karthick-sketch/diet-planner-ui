@@ -4,7 +4,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DietPlanService } from './diet-plan-service';
 import { DietPlanModel } from './model/diet-plan.model';
-import { DietPlanTrackModel } from './model/diet-plan-tracker.model';
+import { DietPlanTrackModel } from './model/diet-plan-track.model';
 import { MealKcalDTO } from './dto/meal-kcal.dto';
 import { MacrosDTO } from './dto/macros.dto';
 

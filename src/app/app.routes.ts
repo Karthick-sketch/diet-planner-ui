@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AIFoodSuggestComponent } from './diet-planner/ai-food-suggest/ai-food-suggest.component';
 import { NoActiveDietPlanComponent } from './diet-planner/no-active-diet-plan/no-active-diet-plan.component';
 import { DietPlanOverviewComponent } from './diet-planner/diet-plan-overview/diet-plan-overview.component';
+import { DietPlanTrackOverviewComponent } from './diet-planner/diet-plan-track-overview/diet-plan-track-overview.component';
 
 export const routes: Routes = [
   {
@@ -48,6 +49,10 @@ export const routes: Routes = [
   {
     path: 'history/:id',
     component: DietPlanOverviewComponent,
+  },
+  {
+    path: 'history/track/:id',
+    component: DietPlanTrackOverviewComponent,
   },
   {
     path: 'diet-plan-form',

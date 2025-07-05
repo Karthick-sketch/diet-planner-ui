@@ -3,17 +3,6 @@
   margin: auto;
 }
 
-.update-weight-btn {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  padding: 0.6rem 0.8rem;
-  font-size: 0.85rem;
-  color: white;
-  background-color: #4591df;
-  border: none;
-  border-radius: 1rem;
-}
-
 .outer-bar {
   width: 100%;
   border-radius: 10px;
@@ -78,16 +67,6 @@
   font-size: 0.8rem;
 }
 
-.btn-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn-container button {
-  padding: 0.6rem 0.8rem;
-  font-size: 0.85rem;
-  color: white;
-  background-color: #4591df;
-  border: none;
-  border-radius: 1rem;
+.meal {
+  margin-top: 1rem;
 }
