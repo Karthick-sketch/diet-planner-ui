@@ -23,7 +23,6 @@ export class DietPlanFormComponent implements OnInit {
   plans = [
     new DropdownModel('Weight Loss', Plan.WEIGHT_LOSS),
     new DropdownModel('Weight Gain', Plan.WEIGHT_GAIN),
-    new DropdownModel('Muscle Gain', Plan.MUSCLE_GAIN),
   ];
   genders = [
     new DropdownModel('Male', Gender.MALE),
@@ -68,11 +67,9 @@ export class DietPlanFormComponent implements OnInit {
 
   createDietPlan() {
     if (this.validateFields()) {
-      this.dietPlanService
-        .createDietPlan(this.mapSelected())
-        .subscribe(() => {
-          this.router.navigate(['/']);
-        });
+      this.dietPlanService.createDietPlan(this.mapSelected()).subscribe(() => {
+        this.router.navigate(['/']);
+      });
     } else {
       console.log(this.dietPlanDTO);
     }
@@ -120,12 +117,8 @@ export class DietPlanFormComponent implements OnInit {
   }
 
   getFinalGoalPlaceholder() {
-    let plan = 'weight loss';
-    if (this.selected.plan === Plan.WEIGHT_GAIN) {
-      plan = 'weight gain';
-    } else if (this.selected.plan === Plan.MUSCLE_GAIN) {
-      plan = 'muscle gain';
-    }
+    let plan =
+      this.selected.plan === Plan.WEIGHT_LOSS ? 'weight loss' : 'weight gain';
     return `Target ${plan} in kilograms`;
   }
 }

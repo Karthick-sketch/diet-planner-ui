@@ -5,7 +5,7 @@ export class DietPlanTrackModel {
   id!: string;
   weight!: number;
   tdee!: number;
-  deficit!: CaloriesDTO;
+  intake!: CaloriesDTO;
   mealKcal!: MealKcalDTO;
   date!: string;
   dietPlanId!: string;

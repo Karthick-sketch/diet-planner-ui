@@ -69,6 +69,17 @@
       </button>
     }
   </div>
+  <div class="multi-field">
+    <p>Activity</p>
+    @for (activity of activities; track $index) {
+      <button
+        [class.selected]="activity.value === selected.activity"
+        (click)="selectActivity(activity.value)"
+      >
+        {{ activity.key }}
+      </button>
+    }
+  </div>
   <div>
     <p>Final Goal</p>
     <input
@@ -96,17 +107,6 @@
         </button>
       }
     </div>
-  </div>
-  <div class="multi-field">
-    <p>Activity</p>
-    @for (activity of activities; track $index) {
-      <button
-        [class.selected]="activity.value === selected.activity"
-        (click)="selectActivity(activity.value)"
-      >
-        {{ activity.key }}
-      </button>
-    }
   </div>
   <button class="primary-btn" (click)="createDietPlan()">
     Create Diet Plan

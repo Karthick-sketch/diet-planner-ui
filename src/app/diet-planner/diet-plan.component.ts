@@ -78,7 +78,6 @@ export class DietPlanComponent implements OnInit {
 
   setKcalPercentage() {
     this.kcalPercentage =
-      (this.dietPlanTrack.deficit.taken / this.dietPlanTrack.deficit.total) *
-      100;
+      (this.dietPlanTrack.intake.taken / this.dietPlanTrack.intake.total) * 100;
   }
 }

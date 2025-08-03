@@ -20,7 +20,7 @@ export class DietPlanTrackOverviewComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private dietPlanService: DietPlanService
+    private dietPlanService: DietPlanService,
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +43,6 @@ export class DietPlanTrackOverviewComponent implements OnInit {
 
   setKcalPercentage() {
     this.kcalPercentage =
-      (this.dietPlanTrack.deficit.taken / this.dietPlanTrack.deficit.total) *
-      100;
+      (this.dietPlanTrack.intake.taken / this.dietPlanTrack.intake.total) * 100;
   }
 }

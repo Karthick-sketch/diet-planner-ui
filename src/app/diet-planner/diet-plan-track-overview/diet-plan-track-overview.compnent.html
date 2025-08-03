@@ -18,10 +18,10 @@
       />
     </div>
     <p>
-      Calories {{ dietPlanTrack.deficit.taken }} / {{
-      dietPlanTrack.deficit.total }}
+      Calories {{ dietPlanTrack.intake.taken }} / {{ dietPlanTrack.intake.total
+      }}
     </p>
-    @if (dietPlanTrack.deficit.taken > dietPlanTrack.tdee) {
+    @if (dietPlanTrack.intake.taken > dietPlanTrack.tdee) {
     <div class="outer-bar">
       <div class="inner-bar-danger">
         <span>•</span>
@@ -30,11 +30,11 @@
       </div>
     </div>
     <div class="bar-value-danger">
-      <span>{{ dietPlanTrack.deficit.total }}</span>
+      <span>{{ dietPlanTrack.intake.total }}</span>
       <span>{{ dietPlanTrack.tdee }}</span>
-      <span>{{ dietPlanTrack.deficit.taken }}</span>
+      <span>{{ dietPlanTrack.intake.taken }}</span>
     </div>
-    } @else if (dietPlanTrack.deficit.taken > dietPlanTrack.deficit.total) {
+    } @else if (dietPlanTrack.intake.taken > dietPlanTrack.intake.total) {
     <div class="outer-bar">
       <div class="inner-bar-warning">
         <div class="value-warning-center">•</div>
@@ -42,8 +42,8 @@
       </div>
     </div>
     <div class="bar-value-warning">
-      <div class="value-warning-center">{{ dietPlanTrack.deficit.total }}</div>
-      <div class="value-warning-right">{{ dietPlanTrack.deficit.taken }}</div>
+      <div class="value-warning-center">{{ dietPlanTrack.intake.total }}</div>
+      <div class="value-warning-right">{{ dietPlanTrack.intake.taken }}</div>
     </div>
     } @else {
     <div class="outer-bar secondary-bg-color">
