@@ -1,6 +1,8 @@
 export class MetricsModel {
   title!: string;
   taken!: number;
+  duration!: number;
+  currentDay!: number;
   currentWeight!: number;
   intake!: number;
   protein!: number;

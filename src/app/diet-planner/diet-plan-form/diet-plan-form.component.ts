@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DietPlanService } from '../diet-plan-service';
-import { TimePeriodDTO } from '../dto/time-period.dto';
 import { DietPlanDTO } from '../dto/diet-plan.dto';
 import { Plan } from '../enum/plan.enum';
 import { Gender } from '../enum/gender.enum';
@@ -18,7 +17,6 @@ import { DropdownModel } from '../../shared/model/dropdown.model';
 })
 export class DietPlanFormComponent implements OnInit {
   dietPlanDTO!: DietPlanDTO;
-  timePeriodDTO!: TimePeriodDTO;
 
   plans = [
     new DropdownModel('Weight Loss', Plan.WEIGHT_LOSS),
@@ -40,13 +38,11 @@ export class DietPlanFormComponent implements OnInit {
     new DropdownModel('Hard', Activity.HARD),
     new DropdownModel('Athlete', Activity.ATHLETE),
   ];
-  timestamps = ['Days', 'Weeks', 'Months'];
   selected = {
     plan: Plan.WEIGHT_LOSS,
     gender: Gender.MALE,
     goal: Goal.MILD,
     activity: Activity.SEDENTARY,
-    timestamp: 'Days',
   };
 
   constructor(
@@ -60,7 +56,6 @@ export class DietPlanFormComponent implements OnInit {
         this.router.navigate(['/']);
       } else {
         this.dietPlanDTO = new DietPlanDTO();
-        this.timePeriodDTO = new TimePeriodDTO();
       }
     });
   }
@@ -82,13 +77,11 @@ export class DietPlanFormComponent implements OnInit {
       this.dietPlanDTO.height &&
       this.dietPlanDTO.weight &&
       this.dietPlanDTO.finalGoal &&
-      this.timePeriodDTO.duration
+      this.dietPlanDTO.duration
     );
   }
 
   private mapSelected() {
-    this.timePeriodDTO.timestamp = this.selected.timestamp;
-    this.dietPlanDTO.timePeriod = this.timePeriodDTO;
     this.dietPlanDTO.plan = this.selected.plan;
     this.dietPlanDTO.gender = this.selected.gender;
     this.dietPlanDTO.goal = this.selected.goal;
@@ -110,10 +103,6 @@ export class DietPlanFormComponent implements OnInit {
 
   selectActivity(activity: Activity) {
     this.selected.activity = activity;
-  }
-
-  selectTimestamp(timestamp: string) {
-    this.selected.timestamp = timestamp;
   }
 
   getFinalGoalPlaceholder() {

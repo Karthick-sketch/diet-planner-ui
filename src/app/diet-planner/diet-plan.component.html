@@ -8,17 +8,30 @@
     </div>
     <section>
       <h3>Daily Summary</h3>
-      <div>
-        <p>Current Weight (kg)</p>
-        <input
-          type="number"
-          class="input-field"
-          [(ngModel)]="dietPlanTrack.weight"
-        />
+      <div class="daily-summary-container">
+        <div>
+          <p>Day</p>
+          <input
+            type="number"
+            class="input-field w-auto"
+            [value]="dietPlanTrack.dayCount"
+            disabled
+          />
+        </div>
+        <div>
+          <p>Current Weight (kg)</p>
+          <input
+            type="number"
+            class="input-field w-auto"
+            [(ngModel)]="dietPlanTrack.weight"
+          />
+        </div>
+        <div>
+          <button class="update-weight-btn" (click)="addWeight()">
+            Update Weight
+          </button>
+        </div>
       </div>
-      <button class="update-weight-btn" (click)="addWeight()">
-        Update Weight
-      </button>
       <p>
         Calories {{ dietPlanTrack.intake.taken }} /
         {{ dietPlanTrack.intake.total }}

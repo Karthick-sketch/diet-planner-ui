@@ -90,23 +90,13 @@
     />
   </div>
   <div>
-    <p>Time Period</p>
+    <p>Duration</p>
     <input
       type="number"
       class="input-field"
-      placeholder="Duration to achieve the goal"
-      [(ngModel)]="timePeriodDTO.duration"
+      placeholder="Number of days to achieve the goal"
+      [(ngModel)]="dietPlanDTO.duration"
     />
-    <div class="multi-field">
-      @for (timestamp of timestamps; track $index) {
-        <button
-          [class.selected]="timestamp === selected.timestamp"
-          (click)="selectTimestamp(timestamp)"
-        >
-          {{ timestamp }}
-        </button>
-      }
-    </div>
   </div>
   <button class="primary-btn" (click)="createDietPlan()">
     Create Diet Plan

@@ -1,7 +1,6 @@
 import { Gender } from '../enum/gender.enum';
 import { Goal } from '../enum/goal.enum';
 import { Activity } from '../enum/activity.enum';
-import { TimePeriodDTO } from '../dto/time-period.dto';
 import { Plan } from '../enum/plan.enum';
 
 export class DietPlanModel {
@@ -14,6 +13,6 @@ export class DietPlanModel {
   weight!: number;
   goal!: Goal;
   finalGoal!: number;
-  timePeriod!: TimePeriodDTO;
+  duration!: number;
   activity!: Activity;
 }

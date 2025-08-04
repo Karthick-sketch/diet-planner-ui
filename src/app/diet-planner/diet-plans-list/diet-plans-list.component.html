@@ -14,7 +14,7 @@
               context: {
                 plan: dietPlan.plan,
                 goal: dietPlan.finalGoal,
-                timePeriod: dietPlan.timePeriod
+                duration: dietPlan.duration,
               }
             "
           ></ng-container>
@@ -33,15 +33,15 @@
   #planDetails
   let-plan="plan"
   let-goal="goal"
-  let-timePeriod="timePeriod"
+  let-duration="duration"
 >
   <p class="sub-text">
     @if (plan === Plan[Plan.WEIGHT_LOSS]) {
       Plan: Weight Loss | Goal: Lose {{ goal }} kg | Duration:
-      {{ timePeriod.duration }} {{ timePeriod.timestamp }}
+      {{ duration }} days
     } @else if (plan === Plan[Plan.WEIGHT_GAIN]) {
       Plan: Weight Gain | Goal: Gain {{ goal }} kg | Duration:
-      {{ timePeriod.duration }} {{ timePeriod.timestamp }}
+      {{ duration }} days
     }
   </p>
 </ng-template>
