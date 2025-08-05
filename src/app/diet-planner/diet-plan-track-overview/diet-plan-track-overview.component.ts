@@ -8,8 +8,8 @@ import { MealKcalDTO } from '../dto/meal-kcal.dto';
 
 @Component({
   selector: 'app-diet-plan',
-  templateUrl: './diet-plan-track-overview.compnent.html',
-  styleUrl: './diet-plan-track-overview.compnent.css',
+  templateUrl: './diet-plan-track-overview.component.html',
+  styleUrl: './diet-plan-track-overview.component.css',
   imports: [NgTemplateOutlet, FormsModule, DatePipe],
 })
 export class DietPlanTrackOverviewComponent implements OnInit {

@@ -15,6 +15,7 @@
                 plan: dietPlan.plan,
                 goal: dietPlan.finalGoal,
                 duration: dietPlan.duration,
+                status: dietPlan.active ? 'Active' : 'Inactive',
               }
             "
           ></ng-container>
@@ -34,14 +35,15 @@
   let-plan="plan"
   let-goal="goal"
   let-duration="duration"
+  let-status="status"
 >
   <p class="sub-text">
     @if (plan === Plan[Plan.WEIGHT_LOSS]) {
       Plan: Weight Loss | Goal: Lose {{ goal }} kg | Duration:
-      {{ duration }} days
+      {{ duration }} days | Status: {{ status }}
     } @else if (plan === Plan[Plan.WEIGHT_GAIN]) {
       Plan: Weight Gain | Goal: Gain {{ goal }} kg | Duration:
-      {{ duration }} days
+      {{ duration }} days | Status: {{ status }}
     }
   </p>
 </ng-template>

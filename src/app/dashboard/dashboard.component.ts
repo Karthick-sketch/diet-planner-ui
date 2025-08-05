@@ -20,15 +20,21 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dietPlanService.getMetrics().subscribe({
-      next: (metricsModel: MetricsModel) => {
-        this.metrics = metricsModel;
-      },
-      error: (err: any) => {
-        if (err.status === 404) {
-          this.router.navigate(['/no-active-plan']);
-        }
-      },
+    this.dietPlanService.isDietPlanReachedDuration().subscribe((status) => {
+      if (status) {
+        this.router.navigate(['/no-active-plan']);
+      } else {
+        this.dietPlanService.getMetrics().subscribe({
+          next: (metricsModel: MetricsModel) => {
+            this.metrics = metricsModel;
+          },
+          error: (err: any) => {
+            if (err.status === 404) {
+              this.router.navigate(['/no-active-plan']);
+            }
+          },
+        });
+      }
     });
   }
 }

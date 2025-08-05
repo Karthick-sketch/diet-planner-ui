@@ -9,7 +9,7 @@
     @for (plan of plans; track plan.id) {
       <div class="plan-track">
         <div class="track-detail">
-          <div class="track-date">{{ plan.date | date: "longDate" }}</div>
+          <div class="track-date">{{ plan.createdAt | date: "longDate" }}</div>
           <p class="sub-text mb-0">
             Weight: {{ plan.weight }}kg | Calories: {{ plan.tdee }}kcal |
             Deficit: {{ plan.intake.taken }}kcal

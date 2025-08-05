@@ -8,5 +8,5 @@ export class DietPlanOverviewModel {
   protein!: CaloriesDTO;
   carbs!: CaloriesDTO;
   fat!: CaloriesDTO;
-  date!: Date;
+  createdAt!: Date;
 }

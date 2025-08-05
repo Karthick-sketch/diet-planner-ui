@@ -15,8 +15,12 @@ export class DietPlanService {
 
   constructor(private http: HttpClient) {}
 
-  getAllDietPlans() {
-    return this.http.get<DietPlanModel[]>(`${this.basePath}/list`);
+  isDietPlanReachedDuration() {
+    return this.http.get<boolean>(`${this.basePath}/status`);
+  }
+
+  getDietPlansHistory() {
+    return this.http.get<DietPlanModel[]>(`${this.basePath}/history`);
   }
 
   getDietPlan() {

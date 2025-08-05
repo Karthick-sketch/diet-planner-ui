@@ -27,27 +27,33 @@ export class DietPlanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dietPlanService.getDietPlan().subscribe({
-      next: (dietPlanModel: DietPlanModel) => {
-        this.dietPlan = dietPlanModel;
-        this.dietPlanService.getDietPlanTrack(dietPlanModel.id).subscribe({
-          next: (dietPlanTrackModel: DietPlanTrackModel) => {
-            this.dietPlanTrack = dietPlanTrackModel;
-            this.meals = dietPlanTrackModel.mealKcal;
-            this.setKcalPercentage();
+    this.dietPlanService.isDietPlanReachedDuration().subscribe((status) => {
+      if (status) {
+        this.router.navigate(['/no-active-plan']);
+      } else {
+        this.dietPlanService.getDietPlan().subscribe({
+          next: (dietPlanModel: DietPlanModel) => {
+            this.dietPlan = dietPlanModel;
+            this.dietPlanService.getDietPlanTrack(dietPlanModel.id).subscribe({
+              next: (dietPlanTrackModel: DietPlanTrackModel) => {
+                this.dietPlanTrack = dietPlanTrackModel;
+                this.meals = dietPlanTrackModel.mealKcal;
+                this.setKcalPercentage();
+              },
+              error: (err) => {
+                if (err.status === 404) {
+                  this.router.navigate(['/not-found']);
+                }
+              },
+            });
           },
           error: (err) => {
             if (err.status === 404) {
-              this.router.navigate(['/not-found']);
+              this.router.navigate(['/no-active-plan']);
             }
           },
         });
-      },
-      error: (err) => {
-        if (err.status === 404) {
-          this.router.navigate(['/no-active-plan']);
-        }
-      },
+      }
     });
   }
 

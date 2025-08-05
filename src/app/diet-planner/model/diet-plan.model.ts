@@ -15,4 +15,5 @@ export class DietPlanModel {
   finalGoal!: number;
   duration!: number;
   activity!: Activity;
+  active!: boolean;
 }
