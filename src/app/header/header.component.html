@@ -11,10 +11,14 @@
       </div>
     } @else {
       <nav>
-        <button [routerLink]="'/dashboard'">Dashboard</button>
-        <button [routerLink]="'/progress'">Progress</button>
-        <button [routerLink]="'/meals'">Meals</button>
-        <button [routerLink]="'/history'">History</button>
+        @for (endpoint of endpoints; track $index) {
+          <button
+            [routerLink]="'/' + endpoint"
+            [class.active]="isActive(endpoint)"
+          >
+            {{ endpoint }}
+          </button>
+        }
         <div>
           <button class="profile-icon" (click)="expandProfile()">
             {{ initial }}

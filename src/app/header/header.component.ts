@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
   isLogin = false;
   isSignup = false;
   isProfileExpanded = false;
+  endpoints = ['dashboard', 'progress', 'meals', 'history'];
+  endpoint = 'dashboard';
 
   constructor(
     private router: Router,
@@ -28,7 +30,12 @@ export class HeaderComponent implements OnInit {
       .subscribe((event: NavigationEnd) => {
         this.isLogin = event.url === '/login';
         this.isSignup = event.url === '/signup';
+        this.endpoint = event.url.slice(1);
       });
+  }
+
+  isActive(endpoint: string) {
+    return this.endpoint === endpoint;
   }
 
   expandProfile() {

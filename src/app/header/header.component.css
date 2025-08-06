@@ -9,6 +9,14 @@ nav {
   justify-content: space-between;
 }
 
+nav > button {
+  text-transform: capitalize;
+}
+
+.active {
+  font-weight: bold;
+}
+
 .header-container {
   width: 100%;
   display: flex;
