@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   user: UserLoginDTO;
+  isInvalidCredentials = false;
 
   constructor(
     private authService: AuthService,
@@ -28,8 +29,13 @@ export class LoginComponent implements OnInit {
 
   submit() {
     if (this.user.username && this.user.password) {
-      this.authService.login(this.user).subscribe(() => {
-        this.router.navigate(['/dashboard']);
+      this.authService.login(this.user).subscribe({
+        next: () => {
+          this.router.navigate(['/dashboard']);
+        },
+        error: () => {
+          this.isInvalidCredentials = true;
+        },
       });
     }
   }
