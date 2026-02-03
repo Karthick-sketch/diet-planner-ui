@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DietPlanService } from '../diet-plan-service';
@@ -8,14 +8,17 @@ import { Gender } from '../enum/gender.enum';
 import { Goal } from '../enum/goal.enum';
 import { Activity } from '../enum/activity.enum';
 import { DropdownModel } from '../../shared/model/dropdown.model';
+import { ToastComponent } from '../../toast/toast.component';
 
 @Component({
   selector: 'app-diet-plan-form',
   templateUrl: './diet-plan-form.component.html',
   styleUrl: './diet-plan-form.component.css',
-  imports: [FormsModule],
+  imports: [FormsModule, ToastComponent],
 })
 export class DietPlanFormComponent implements OnInit {
+  @ViewChild(ToastComponent) toastRef!: ToastComponent;
+
   dietPlanDTO!: DietPlanDTO;
 
   plans = [
@@ -61,24 +64,82 @@ export class DietPlanFormComponent implements OnInit {
   }
 
   createDietPlan() {
+    this.mapSelected();
     if (this.validateFields()) {
-      this.dietPlanService.createDietPlan(this.mapSelected()).subscribe(() => {
-        this.router.navigate(['/']);
+      this.dietPlanService.createDietPlan(this.dietPlanDTO).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: (errResponse) => {
+          if (errResponse.status === 400) {
+            this.toastRef.showError(errResponse.error.error[0]);
+          }
+        },
       });
-    } else {
-      console.log(this.dietPlanDTO);
     }
   }
 
   private validateFields() {
-    return (
-      this.dietPlanDTO.age &&
-      this.dietPlanDTO.title &&
-      this.dietPlanDTO.height &&
-      this.dietPlanDTO.weight &&
-      this.dietPlanDTO.finalGoal &&
-      this.dietPlanDTO.duration
-    );
+    if (!this.dietPlanDTO.title) {
+      this.toastRef.showError('Title is empty');
+      return false;
+    }
+    const age = this.dietPlanDTO.age;
+    if (!age || age < 18 || age > 65) {
+      this.toastRef.showError('Age requirement: 18-65');
+      return false;
+    }
+    const height = this.dietPlanDTO.height;
+    if (!height || height < 140 || height > 210) {
+      this.toastRef.showError('Height requirement: 140-210cm');
+      return false;
+    }
+    const weight = this.dietPlanDTO.weight;
+    if (!weight || weight < 40 || weight > 180) {
+      this.toastRef.showError('Weight requirement: 40-180kg');
+      return false;
+    }
+    if (!this.validateTargetWeight(this.dietPlanDTO.targetWeight)) {
+      return false;
+    }
+    const duration = this.dietPlanDTO.duration;
+    if (!duration || duration < 14 || duration > 730) {
+      this.toastRef.showError('Duration requirement: 14-730 days');
+      return false;
+    }
+    return true;
+  }
+
+  private validateTargetWeight(targetWeight: number) {
+    if (!targetWeight) {
+      this.toastRef.showError('Target Weight is empty');
+      return false;
+    } else if (this.dietPlanDTO.plan === Plan.WEIGHT_LOSS) {
+      if (targetWeight >= this.dietPlanDTO.weight) {
+        this.toastRef.showError(
+          'Target weight must be less than current weight',
+        );
+        return false;
+      } else if (targetWeight < 40) {
+        this.toastRef.showError(
+          'Target weight must be greater than or equal to 40kg',
+        );
+        return false;
+      }
+    } else if (this.dietPlanDTO.plan === Plan.WEIGHT_GAIN) {
+      if (targetWeight <= this.dietPlanDTO.weight) {
+        this.toastRef.showError(
+          'Target weight must be greater than current weight',
+        );
+        return false;
+      } else if (targetWeight > 110) {
+        this.toastRef.showError(
+          'Target weight must be less than or equal to 110kg',
+        );
+        return false;
+      }
+    }
+    return true;
   }
 
   private mapSelected() {
@@ -86,7 +147,6 @@ export class DietPlanFormComponent implements OnInit {
     this.dietPlanDTO.gender = this.selected.gender;
     this.dietPlanDTO.goal = this.selected.goal;
     this.dietPlanDTO.activity = this.selected.activity;
-    return this.dietPlanDTO;
   }
 
   selectDietPlan(plan: Plan) {
@@ -105,7 +165,7 @@ export class DietPlanFormComponent implements OnInit {
     this.selected.activity = activity;
   }
 
-  getFinalGoalPlaceholder() {
+  getTargetWeightPlaceholder() {
     let plan =
       this.selected.plan === Plan.WEIGHT_LOSS ? 'weight loss' : 'weight gain';
     return `Target ${plan} in kilograms`;

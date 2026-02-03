@@ -1,7 +1,8 @@
+<app-toast></app-toast>
 <section>
   <h2>Create Your Diet Plan</h2>
   <div>
-    <p>Title</p>
+    <p>Title <span class="red-star">*</span></p>
     <input
       type="text"
       class="input-field"
@@ -10,7 +11,7 @@
     />
   </div>
   <div class="multi-field">
-    <p>Plan</p>
+    <p>Plan <span class="red-star">*</span></p>
     @for (plan of plans; track $index) {
       <button
         [class.selected]="plan.value === selected.plan"
@@ -21,7 +22,10 @@
     }
   </div>
   <div>
-    <p>Age</p>
+    <p>
+      Age <span class="red-star">* </span>
+      <span class="field-info">(Age requirement: 18-65 years)</span>
+    </p>
     <input
       type="number"
       class="input-field"
@@ -30,7 +34,7 @@
     />
   </div>
   <div class="multi-field">
-    <p>Gender</p>
+    <p>Gender <span class="red-star">*</span></p>
     @for (gender of genders; track $index) {
       <button
         [class.selected]="gender.value === selected.gender"
@@ -41,7 +45,10 @@
     }
   </div>
   <div>
-    <p>Height</p>
+    <p>
+      Height <span class="red-star">* </span>
+      <span class="field-info">(Height requirement: 140-210cm)</span>
+    </p>
     <input
       type="number"
       class="input-field"
@@ -50,7 +57,10 @@
     />
   </div>
   <div>
-    <p>Weight</p>
+    <p>
+      Weight <span class="red-star">* </span>
+      <span class="field-info">(Weight requirement: 40-180kg)</span>
+    </p>
     <input
       type="number"
       class="input-field"
@@ -59,7 +69,7 @@
     />
   </div>
   <div class="multi-field">
-    <p>Goal</p>
+    <p>Goal <span class="red-star">*</span></p>
     @for (goal of goals; track $index) {
       <button
         [class.selected]="goal.value === selected.goal"
@@ -70,7 +80,7 @@
     }
   </div>
   <div class="multi-field">
-    <p>Activity</p>
+    <p>Activity <span class="red-star">*</span></p>
     @for (activity of activities; track $index) {
       <button
         [class.selected]="activity.value === selected.activity"
@@ -81,16 +91,16 @@
     }
   </div>
   <div>
-    <p>Final Goal</p>
+    <p>Target Weight <span class="red-star">*</span></p>
     <input
       type="number"
       class="input-field"
-      [placeholder]="getFinalGoalPlaceholder()"
-      [(ngModel)]="dietPlanDTO.finalGoal"
+      [placeholder]="getTargetWeightPlaceholder()"
+      [(ngModel)]="dietPlanDTO.targetWeight"
     />
   </div>
   <div>
-    <p>Duration</p>
+    <p>Duration <span class="red-star">*</span></p>
     <input
       type="number"
       class="input-field"

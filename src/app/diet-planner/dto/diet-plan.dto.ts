@@ -12,7 +12,7 @@ export class DietPlanDTO {
   height!: number;
   weight!: number;
   goal!: Goal;
-  finalGoal!: number;
+  targetWeight!: number;
   duration!: number;
   activity!: Activity;
 }

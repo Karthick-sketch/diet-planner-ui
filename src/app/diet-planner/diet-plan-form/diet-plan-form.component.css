@@ -30,3 +30,18 @@ section {
   width: 90% !important;
   margin-top: 1.5rem !important;
 }
+
+.red-star {
+  color: red;
+  font-size: small;
+}
+
+.field-info {
+  font-size: small;
+}
+
+.invalid-field {
+  margin-top: 1rem;
+  color: red;
+  text-align: center;
+}
