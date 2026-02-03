@@ -1,0 +1,26 @@
+#toastbox {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.toast {
+  width: 400px;
+  height: 80px;
+  padding: 0 1rem;
+  background-color: #fdd;
+  border-radius: 6px;
+  font-weight: 500;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.toast > img {
+  margin-right: 0.5rem;
+}
