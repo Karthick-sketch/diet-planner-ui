@@ -13,28 +13,25 @@ export interface JwtPayload {
   providedIn: 'root',
 })
 export class TokenService {
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  decodeToken(): JwtPayload | null {
-    const token = this.getToken();
-    if (!token) return null;
-    try {
-      return jwtDecode<JwtPayload>(token);
-    } catch (e) {
-      return null;
+  isLoggedIn(accessToken: string | null): boolean {
+    if (!accessToken) {
+      return false;
     }
+    return !this.isTokenExpired(accessToken);
   }
 
-  isTokenExpired(): boolean {
-    const payload = this.decodeToken();
+  private isTokenExpired(accessToken: string): boolean {
+    const payload = this.decodeToken(accessToken);
     if (!payload) return true;
     const now = Math.floor(Date.now() / 1000);
     return payload.exp < now;
   }
 
-  isLoggedIn(): boolean {
-    return !this.isTokenExpired();
+  private decodeToken(accessToken: string): JwtPayload | null {
+    try {
+      return jwtDecode<JwtPayload>(accessToken);
+    } catch (e) {
+      return null;
+    }
   }
 }
