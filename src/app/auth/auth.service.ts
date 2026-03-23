@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { TokenService } from './token.service';
 import { UserSignupDTO } from './dto/user-signup.dto';
 import { UserLoginDTO } from './dto/user-login.dto';
@@ -44,6 +44,7 @@ export class AuthService {
       {},
       {
         withCredentials: true,
+        observe: 'response',
       },
     );
   }
@@ -52,17 +53,27 @@ export class AuthService {
     this.clearAccessToken();
   }
 
-  isAuthenticated() {
-    if (!this.accessToken) {
-      this.requestRefreshToken().subscribe({
-        next: (res: any) => {
-          this.setAccessToken(res.accessToken);
-        },
-        error: () => {
-          this.clearAccessToken();
-        },
-      });
+  isAuthenticated(): Observable<boolean> {
+    // If we already have a valid token, return immediately
+    if (this.tokenService.isLoggedIn(this.accessToken)) {
+      return of(true);
     }
-    return this.tokenService.isLoggedIn(this.accessToken);
+
+    // Otherwise, attempt to refresh and wait for the result
+    return this.requestRefreshToken().pipe(
+      map((res: any) => {
+        const authHeader = res.headers?.get('Authorization');
+        if (authHeader) {
+          const accessToken = authHeader.substring(7);
+          this.setAccessToken(accessToken);
+          return true;
+        }
+        return false;
+      }),
+      catchError(() => {
+        this.clearAccessToken();
+        return of(false);
+      }),
+    );
   }
 }

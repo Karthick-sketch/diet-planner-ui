@@ -22,9 +22,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/dashboard']);
-    }
+    this.authService.isAuthenticated().subscribe((isAuth) => {
+      if (isAuth) {
+        this.router.navigate(['/dashboard']);
+      }
+    });
   }
 
   submit() {

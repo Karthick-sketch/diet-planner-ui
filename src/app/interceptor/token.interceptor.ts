@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import {
   HttpBackend,
+  HttpClient,
   HttpInterceptorFn,
-  HttpRequest,
 } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { switchMap } from 'rxjs';
@@ -27,29 +27,28 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
     });
     return next(cloneReq);
   } else {
-    const baseUrl = environment.baseUrl;
-    const refreshReq = new HttpRequest(
-      'POST',
-      `${baseUrl}/user/refresh`,
-      {},
-      {
-        withCredentials: true,
-      },
-    );
+    const rawHttp = new HttpClient(httpBackend);
 
-    return httpBackend.handle(refreshReq).pipe(
-      switchMap((res: any) => {
-        const authHeader = res.headers?.get('Authorization');
-        if (authHeader) {
-          authService.setAccessToken(authHeader.substring(7));
-          const cloneReq = req.clone({
-            setHeaders: { Authorization: `Bearer ${authHeader}` },
-            withCredentials: true,
-          });
-          return next(cloneReq);
-        }
-        return next(req);
-      }),
-    );
+    return rawHttp
+      .post(
+        `${environment.baseUrl}/user/refresh`,
+        {},
+        { withCredentials: true, observe: 'response' },
+      )
+      .pipe(
+        switchMap((res: any) => {
+          const authHeader = res.headers?.get('Authorization');
+          if (authHeader) {
+            const accessToken = authHeader.substring(7);
+            authService.setAccessToken(accessToken);
+            const cloneReq = req.clone({
+              setHeaders: { Authorization: `Bearer ${accessToken}` },
+              withCredentials: true,
+            });
+            return next(cloneReq);
+          }
+          return next(req);
+        }),
+      );
   }
 };
