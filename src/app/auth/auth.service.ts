@@ -38,6 +38,10 @@ export class AuthService {
     });
   }
 
+  logout() {
+    return this.http.post('/user/logout', {}, { withCredentials: true });
+  }
+
   requestRefreshToken() {
     return this.http.post(
       '/user/refresh',
@@ -49,17 +53,11 @@ export class AuthService {
     );
   }
 
-  logout() {
-    this.clearAccessToken();
-  }
-
   isAuthenticated(): Observable<boolean> {
-    // If we already have a valid token, return immediately
     if (this.tokenService.isLoggedIn(this.accessToken)) {
       return of(true);
     }
 
-    // Otherwise, attempt to refresh and wait for the result
     return this.requestRefreshToken().pipe(
       map((res: any) => {
         const authHeader = res.headers?.get('Authorization');
