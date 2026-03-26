@@ -17,7 +17,7 @@ export class AuthService {
   ) {}
 
   setAccessToken(token: string) {
-    this.accessToken = token;
+    this.accessToken = token.replace('Bearer ', '');
   }
 
   getAccessToken() {
@@ -60,9 +60,8 @@ export class AuthService {
 
     return this.requestRefreshToken().pipe(
       map((res: any) => {
-        const authHeader = res.headers?.get('Authorization');
-        if (authHeader) {
-          const accessToken = authHeader.substring(7);
+        const accessToken = res.body?.accessToken;
+        if (accessToken) {
           this.setAccessToken(accessToken);
           return true;
         }

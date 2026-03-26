@@ -37,9 +37,8 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
       )
       .pipe(
         switchMap((res: any) => {
-          const authHeader = res.headers?.get('Authorization');
-          if (authHeader) {
-            const accessToken = authHeader.substring(7);
+          const accessToken = res.body?.accessToken;
+          if (accessToken) {
             authService.setAccessToken(accessToken);
             const cloneReq = req.clone({
               setHeaders: { Authorization: `Bearer ${accessToken}` },
