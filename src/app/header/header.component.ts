@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit {
   signOut() {
     this.authService.logout().subscribe(() => {
       this.authService.clearAccessToken();
-      this.authService.setLoggedIn(false);
       this.router.navigate(['/login']);
     });
   }
