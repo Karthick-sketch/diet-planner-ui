@@ -1,3 +1,4 @@
+<app-toast></app-toast>
 <div class="signup-container">
   <h2>Login to your Account</h2>
   <div class="field-container">
@@ -6,11 +7,6 @@
   <div class="field-container">
     <input type="password" placeholder="Password" [(ngModel)]="user.password" />
   </div>
-  @if (isInvalidCredentials) {
-    <div class="field-container invalid-credentials">
-      Invalid username or password!
-    </div>
-  }
   <button type="submit" class="signup-btn" (click)="submit()">Login</button>
   <div class="login-link">
     New to Kalories? <a routerLink="/signup">Sign Up here</a>

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,14 @@ import { HeaderComponent } from './header/header.component';
   styleUrl: './app.component.css',
   imports: [RouterOutlet, HeaderComponent],
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  initial = '';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.username$.subscribe((username) => {
+      this.initial = username ? username.charAt(0).toUpperCase() : '';
+    });
+  }
+}

@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UserLoginDTO } from '../dto/user-login.dto';
-import { FormsModule } from '@angular/forms';
+import { ToastComponent } from '../../toast/toast.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, ToastComponent],
 })
 export class LoginComponent implements OnInit {
+  @ViewChild(ToastComponent) toast!: ToastComponent;
+
   user: UserLoginDTO;
   isInvalidCredentials = false;
 
@@ -36,7 +39,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         },
         error: () => {
-          this.isInvalidCredentials = true;
+          this.toast.showError('Invalid username or password!');
         },
       });
     }

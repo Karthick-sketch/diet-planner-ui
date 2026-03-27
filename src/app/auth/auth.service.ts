@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { UserSignupDTO } from './dto/user-signup.dto';
 import { UserLoginDTO } from './dto/user-login.dto';
+import { UsernameDTO } from './dto/username.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private accessToken: string | null = null;
+  private usernameSubject = new BehaviorSubject<string | null>(null);
+  username$ = this.usernameSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -24,22 +27,32 @@ export class AuthService {
     return this.accessToken;
   }
 
+  hasAccessToken() {
+    return !!this.accessToken;
+  }
+
   clearAccessToken() {
     this.accessToken = null;
   }
 
   signup(userSignupDTO: UserSignupDTO) {
-    return this.http.post('/user/register', userSignupDTO);
+    return this.http.post('/user/register', userSignupDTO).pipe(
+      tap(() => this.fetchUsername()),
+    );
   }
 
   login(userLoginDTO: UserLoginDTO) {
     return this.http.post('/authenticate', userLoginDTO, {
       withCredentials: true,
-    });
+    }).pipe(
+      tap(() => this.fetchUsername()),
+    );
   }
 
   logout() {
-    return this.http.post('/user/logout', {}, { withCredentials: true });
+    return this.http.post('/user/logout', {}, { withCredentials: true }).pipe(
+      tap(() => this.usernameSubject.next(null)),
+    );
   }
 
   requestRefreshToken() {
@@ -63,6 +76,7 @@ export class AuthService {
         const accessToken = res.body?.accessToken;
         if (accessToken) {
           this.setAccessToken(accessToken);
+          this.fetchUsername();
           return true;
         }
         return false;
@@ -72,5 +86,16 @@ export class AuthService {
         return of(false);
       }),
     );
+  }
+
+  getUsername() {
+    return this.http.get<UsernameDTO>('/user/username');
+  }
+
+  private fetchUsername() {
+    this.getUsername().subscribe({
+      next: ({ username }) => this.usernameSubject.next(username),
+      error: () => this.usernameSubject.next(null),
+    });
   }
 }
