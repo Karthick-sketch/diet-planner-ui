@@ -10,6 +10,7 @@ import { UserLoginDTO } from './dto/user-login.dto';
 })
 export class AuthService {
   private accessToken: string | null = null;
+  private loggedIn: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -53,7 +54,19 @@ export class AuthService {
     );
   }
 
+  setLoggedIn(loggedIn: boolean) {
+    this.loggedIn = loggedIn;
+  }
+
+  isLoggedIn() {
+    return this.loggedIn;
+  }
+
   isAuthenticated(): Observable<boolean> {
+    if (!this.loggedIn) {
+      return of(false);
+    }
+
     if (this.tokenService.isLoggedIn(this.accessToken)) {
       return of(true);
     }

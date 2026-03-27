@@ -4,9 +4,9 @@ import {
   HttpClient,
   HttpInterceptorFn,
 } from '@angular/common/http';
-import { AuthService } from '../auth/auth.service';
 import { switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { AuthService } from '../auth/auth.service';
 
 const PUBLIC_URLS = ['/authenticate', '/user/register'];
 
@@ -28,7 +28,6 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
     return next(cloneReq);
   } else {
     const rawHttp = new HttpClient(httpBackend);
-
     return rawHttp
       .post(
         `${environment.baseUrl}/user/refresh`,
@@ -40,6 +39,7 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
           const accessToken = res.body?.accessToken;
           if (accessToken) {
             authService.setAccessToken(accessToken);
+            authService.setLoggedIn(true);
             const cloneReq = req.clone({
               setHeaders: { Authorization: `Bearer ${accessToken}` },
               withCredentials: true,
