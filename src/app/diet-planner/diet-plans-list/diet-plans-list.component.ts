@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { DietPlanService } from '../diet-plan-service';
 import { DietPlanModel } from '../model/diet-plan.model';
 import { Plan } from '../enum/plan.enum';
@@ -8,7 +9,7 @@ import { Plan } from '../enum/plan.enum';
   selector: 'app-diet-plans-list',
   templateUrl: './diet-plans-list.component.html',
   styleUrl: './diet-plans-list.component.css',
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, RouterLink],
 })
 export class DietPlansListComponent implements OnInit {
   dietPlans!: DietPlanModel[];

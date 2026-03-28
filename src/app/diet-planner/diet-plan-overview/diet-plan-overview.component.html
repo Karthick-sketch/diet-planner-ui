@@ -19,9 +19,9 @@
             {{ plan.carbs.taken }}g | Fat: {{ plan.fat.taken }}g
           </p>
         </div>
-        <a [href]="'/history/track/' + plan.id" class="view-plan-btn">
+        <button [routerLink]="'/history/track/' + plan.id">
           <img src="right.svg" alt="View Plan" />
-        </a>
+        </button>
       </div>
     }
   </div>

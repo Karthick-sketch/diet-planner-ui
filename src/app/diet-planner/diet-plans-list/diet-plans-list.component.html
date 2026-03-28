@@ -20,9 +20,9 @@
             "
           ></ng-container>
         </div>
-        <a [href]="'/history/' + dietPlan.id" class="view-plan-btn">
+        <button [routerLink]="'/history/' + dietPlan.id">
           <img src="right.svg" alt="View Plan" />
-        </a>
+        </button>
       </div>
     } @empty {
       <p>No available Diet plans.</p>
