@@ -4,3 +4,21 @@
   align-items: center;
   margin-top: 2rem;
 }
+
+.past-plan-btn-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.past-plan-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.past-plan-container > .plan-detail {
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 1rem;
+}

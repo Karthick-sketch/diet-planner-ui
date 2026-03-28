@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DietPlanDTO } from './dto/diet-plan.dto';
 import { DietPlanModel } from './model/diet-plan.model';
 import { DietPlanTrackModel } from './model/diet-plan-track.model';
-import { MacrosDTO } from './dto/macros.dto';
 import { MetricsModel } from './model/metrics.model';
 import { DietPlanOverviewModel } from './model/diet-plan-overview.model';
+import { DietPlanDTO } from './dto/diet-plan.dto';
+import { MacrosDTO } from './dto/macros.dto';
+import { DietPlanHistoryDTO } from './dto/diet-plan-history.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,11 @@ export class DietPlanService {
   }
 
   getDietPlansHistory() {
-    return this.http.get<DietPlanModel[]>(`${this.basePath}/history`);
+    return this.http.get<DietPlanHistoryDTO[]>(`${this.basePath}/history`);
+  }
+
+  getPastDietPlan() {
+    return this.http.get<DietPlanHistoryDTO>(`${this.basePath}/past-plan`);
   }
 
   getDietPlan() {

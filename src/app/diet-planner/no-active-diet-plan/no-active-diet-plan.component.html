@@ -1,9 +1,31 @@
 <div class="no-diet-plan-container">
   <img src="no-diet-plan.png" alt="no active diet plan" />
   <h3>No Active Diet Plan</h3>
-  <p>
-    You don't have an active diet plan. Create one to start tracking your meals
-    and progress.
+  <p class="mt-0">You don't have an active diet plan.</p>
+  <p class="mt-0">
+    Continue with the past plan or create one to start tracking your meals and
+    progress.
   </p>
-  <a href="/diet-plan-form" class="primary-btn">Create Diet Plan</a>
+  @if (pastPlan) {
+    <div class="past-plan-container">
+      <div class="plan-detail">
+        <div class="plan-title">{{ pastPlan.title }}</div>
+        <p class="sub-text">
+          Plan: {{ getPlan(pastPlan.plan) }} | Weight: {{ pastPlan.weight }}kg |
+          Target Weight: {{ pastPlan.targetWeight }}kg | Duration:
+          {{ pastPlan.duration }} days
+        </p>
+      </div>
+
+      <p>Do you want to continue with this diet plan?</p>
+      <div class="past-plan-btn-container">
+        <button [routerLink]="'/diet-plan-form'" class="primary-btn">
+          Continue with this plan
+        </button>
+        <button [routerLink]="'/diet-plan-form'" class="special-btn">
+          Create new plan
+        </button>
+      </div>
+    </div>
+  }
 </div>

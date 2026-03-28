@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DietPlanService } from '../diet-plan-service';
-import { DietPlanModel } from '../model/diet-plan.model';
 import { Plan } from '../enum/plan.enum';
+import { DietPlanHistoryDTO } from '../dto/diet-plan-history.dto';
 
 @Component({
   selector: 'app-diet-plans-list',
@@ -12,7 +12,7 @@ import { Plan } from '../enum/plan.enum';
   imports: [NgTemplateOutlet, RouterLink],
 })
 export class DietPlansListComponent implements OnInit {
-  dietPlans!: DietPlanModel[];
+  dietPlans!: DietPlanHistoryDTO[];
   Plan = Plan;
 
   constructor(private dietPlanService: DietPlanService) {}
@@ -20,8 +20,16 @@ export class DietPlansListComponent implements OnInit {
   ngOnInit(): void {
     this.dietPlanService
       .getDietPlansHistory()
-      .subscribe((dietPlanModels: DietPlanModel[]) => {
+      .subscribe((dietPlanModels: DietPlanHistoryDTO[]) => {
         this.dietPlans = dietPlanModels;
       });
+  }
+
+  getPlan(plan: Plan) {
+    return plan === Plan.WEIGHT_LOSS ? 'Weight Loss' : 'Weight Gain';
+  }
+
+  getStatus(status: boolean) {
+    return status ? 'Active' : 'Inactive';
   }
 }

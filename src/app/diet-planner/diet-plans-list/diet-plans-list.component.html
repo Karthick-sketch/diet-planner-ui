@@ -13,7 +13,8 @@
               planDetails;
               context: {
                 plan: dietPlan.plan,
-                goal: dietPlan.finalGoal,
+                weight: dietPlan.weight,
+                targetWeight: dietPlan.targetWeight,
                 duration: dietPlan.duration,
                 status: dietPlan.active ? 'Active' : 'Inactive',
               }
@@ -33,17 +34,14 @@
 <ng-template
   #planDetails
   let-plan="plan"
-  let-goal="goal"
+  let-weight="weight"
+  let-targetWeight="targetWeight"
   let-duration="duration"
   let-status="status"
 >
   <p class="sub-text">
-    @if (plan === Plan[Plan.WEIGHT_LOSS]) {
-      Plan: Weight Loss | Goal: Lose {{ goal }} kg | Duration:
-      {{ duration }} days | Status: {{ status }}
-    } @else if (plan === Plan[Plan.WEIGHT_GAIN]) {
-      Plan: Weight Gain | Goal: Gain {{ goal }} kg | Duration:
-      {{ duration }} days | Status: {{ status }}
-    }
+    Plan: {{ getPlan(plan) }} | Weight: {{ weight }}kg | Target Weight:
+    {{ targetWeight }}kg | Duration: {{ duration }} days | Status:
+    {{ getStatus(status) }}
   </p>
 </ng-template>
