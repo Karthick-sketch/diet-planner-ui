@@ -1,7 +1,7 @@
 export enum Activity {
-  SEDENTARY,
-  LIGHT,
-  MODERATE,
-  HARD,
-  ATHLETE,
+  SEDENTARY = 'SEDENTARY',
+  LIGHT = 'LIGHT',
+  MODERATE = 'MODERATE',
+  HARD = 'HARD',
+  ATHLETE = 'ATHLETE',
 }

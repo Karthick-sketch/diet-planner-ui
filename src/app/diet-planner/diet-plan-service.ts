@@ -32,8 +32,16 @@ export class DietPlanService {
     return this.http.get<DietPlanModel>(this.basePath);
   }
 
+  getDietPlanById(dietPlanId: string) {
+    return this.http.get<DietPlanDTO>(`${this.basePath}/${dietPlanId}`);
+  }
+
   createDietPlan(dietPlanDTO: DietPlanDTO) {
     return this.http.post<DietPlanModel>(this.basePath, dietPlanDTO);
+  }
+
+  updateDietPlan(dietPlanDTO: DietPlanDTO) {
+    return this.http.put<DietPlanModel>(`${this.basePath}/update`, dietPlanDTO);
   }
 
   addWeight(dietPlanId: string, weight: number) {

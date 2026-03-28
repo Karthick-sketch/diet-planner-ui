@@ -1,5 +1,5 @@
 export enum Goal {
-  MILD,
-  MODERATE,
-  AGGRESSIVE,
+  MILD = 'MILD',
+  MODERATE = 'MODERATE',
+  AGGRESSIVE = 'AGGRESSIVE',
 }

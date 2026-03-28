@@ -17,9 +17,10 @@ import { ToastComponent } from '../../toast/toast.component';
   imports: [FormsModule, ToastComponent],
 })
 export class DietPlanFormComponent implements OnInit {
-  @ViewChild(ToastComponent) toastRef!: ToastComponent;
+  @ViewChild(ToastComponent) toast!: ToastComponent;
 
   dietPlanDTO!: DietPlanDTO;
+  dietPlanId: string | null = null;
 
   plans = [
     new DropdownModel('Weight Loss', Plan.WEIGHT_LOSS),
@@ -51,14 +52,33 @@ export class DietPlanFormComponent implements OnInit {
   constructor(
     private router: Router,
     private dietPlanService: DietPlanService,
-  ) {}
+  ) {
+    this.dietPlanDTO = new DietPlanDTO();
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state) {
+      this.dietPlanId = navigation.extras.state['pastPlanId'];
+    }
+  }
 
   ngOnInit() {
     this.dietPlanService.isThereAnyActivePlans().subscribe((value) => {
       if (value) {
         this.router.navigate(['/']);
-      } else {
-        this.dietPlanDTO = new DietPlanDTO();
+      } else if (this.dietPlanId) {
+        this.dietPlanService.getDietPlanById(this.dietPlanId).subscribe({
+          next: (dietPlanDTO: DietPlanDTO) => {
+            this.dietPlanDTO = dietPlanDTO;
+            this.selected.plan = this.dietPlanDTO.plan;
+            this.selected.gender = this.dietPlanDTO.gender;
+            this.selected.goal = this.dietPlanDTO.goal;
+            this.selected.activity = this.dietPlanDTO.activity;
+          },
+          error: ({ status, error }) => {
+            if (status === 404) {
+              this.toast.showError(error.error[0]);
+            }
+          },
+        });
       }
     });
   }
@@ -70,9 +90,25 @@ export class DietPlanFormComponent implements OnInit {
         next: () => {
           this.router.navigate(['/']);
         },
-        error: (errResponse) => {
-          if (errResponse.status === 400) {
-            this.toastRef.showError(errResponse.error.error[0]);
+        error: ({ status, error }) => {
+          if (status === 400) {
+            this.toast.showError(error.error[0]);
+          }
+        },
+      });
+    }
+  }
+
+  updateDietPlan() {
+    this.mapSelected();
+    if (this.validateFields()) {
+      this.dietPlanService.updateDietPlan(this.dietPlanDTO).subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: ({ status, error }) => {
+          if (status === 400) {
+            this.toast.showError(error.error[0]);
           }
         },
       });
@@ -81,22 +117,22 @@ export class DietPlanFormComponent implements OnInit {
 
   private validateFields() {
     if (!this.dietPlanDTO.title) {
-      this.toastRef.showError('Title is empty');
+      this.toast.showError('Title is empty');
       return false;
     }
     const age = this.dietPlanDTO.age;
     if (!age || age < 18 || age > 65) {
-      this.toastRef.showError('Age requirement: 18-65');
+      this.toast.showError('Age requirement: 18-65');
       return false;
     }
     const height = this.dietPlanDTO.height;
     if (!height || height < 140 || height > 210) {
-      this.toastRef.showError('Height requirement: 140-210cm');
+      this.toast.showError('Height requirement: 140-210cm');
       return false;
     }
     const weight = this.dietPlanDTO.weight;
     if (!weight || weight < 40 || weight > 180) {
-      this.toastRef.showError('Weight requirement: 40-180kg');
+      this.toast.showError('Weight requirement: 40-180kg');
       return false;
     }
     if (!this.validateTargetWeight(this.dietPlanDTO.targetWeight)) {
@@ -104,7 +140,7 @@ export class DietPlanFormComponent implements OnInit {
     }
     const duration = this.dietPlanDTO.duration;
     if (!duration || duration < 14 || duration > 730) {
-      this.toastRef.showError('Duration requirement: 14-730 days');
+      this.toast.showError('Duration requirement: 14-730 days');
       return false;
     }
     return true;
@@ -112,28 +148,26 @@ export class DietPlanFormComponent implements OnInit {
 
   private validateTargetWeight(targetWeight: number) {
     if (!targetWeight) {
-      this.toastRef.showError('Target Weight is empty');
+      this.toast.showError('Target Weight is empty');
       return false;
     } else if (this.dietPlanDTO.plan === Plan.WEIGHT_LOSS) {
       if (targetWeight >= this.dietPlanDTO.weight) {
-        this.toastRef.showError(
-          'Target weight must be less than current weight',
-        );
+        this.toast.showError('Target weight must be less than current weight');
         return false;
       } else if (targetWeight < 40) {
-        this.toastRef.showError(
+        this.toast.showError(
           'Target weight must be greater than or equal to 40kg',
         );
         return false;
       }
     } else if (this.dietPlanDTO.plan === Plan.WEIGHT_GAIN) {
       if (targetWeight <= this.dietPlanDTO.weight) {
-        this.toastRef.showError(
+        this.toast.showError(
           'Target weight must be greater than current weight',
         );
         return false;
       } else if (targetWeight > 110) {
-        this.toastRef.showError(
+        this.toast.showError(
           'Target weight must be less than or equal to 110kg',
         );
         return false;

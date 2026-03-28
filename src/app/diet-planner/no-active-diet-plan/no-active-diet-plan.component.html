@@ -19,7 +19,7 @@
 
       <p>Do you want to continue with this diet plan?</p>
       <div class="past-plan-btn-container">
-        <button [routerLink]="'/diet-plan-form'" class="primary-btn">
+        <button (click)="continuePlan()" class="primary-btn">
           Continue with this plan
         </button>
         <button [routerLink]="'/diet-plan-form'" class="special-btn">

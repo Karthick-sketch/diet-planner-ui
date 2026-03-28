@@ -1,6 +1,10 @@
 <app-toast></app-toast>
 <section>
-  <h2>Create Your Diet Plan</h2>
+  @if (dietPlanId) {
+    <h2>Update Your Diet Plan</h2>
+  } @else {
+    <h2>Create Your Diet Plan</h2>
+  }
   <div>
     <p>Title <span class="red-star">*</span></p>
     <input
@@ -108,7 +112,13 @@
       [(ngModel)]="dietPlanDTO.duration"
     />
   </div>
-  <button class="primary-btn" (click)="createDietPlan()">
-    Create Diet Plan
-  </button>
+  @if (dietPlanId) {
+    <button class="primary-btn" (click)="updateDietPlan()">
+      Update Diet Plan
+    </button>
+  } @else {
+    <button class="primary-btn" (click)="createDietPlan()">
+      Create Diet Plan
+    </button>
+  }
 </section>
