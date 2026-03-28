@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { UserSignupDTO } from './dto/user-signup.dto';
 import { UserLoginDTO } from './dto/user-login.dto';
@@ -10,9 +10,9 @@ import { UsernameDTO } from './dto/username.dto';
   providedIn: 'root',
 })
 export class AuthService {
+  username = signal<string | null>(null);
+
   private accessToken: string | null = null;
-  private usernameSubject = new BehaviorSubject<string | null>(null);
-  username$ = this.usernameSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -36,23 +36,23 @@ export class AuthService {
   }
 
   signup(userSignupDTO: UserSignupDTO) {
-    return this.http.post('/user/register', userSignupDTO).pipe(
-      tap(() => this.fetchUsername()),
-    );
+    return this.http
+      .post('/user/register', userSignupDTO)
+      .pipe(tap(() => this.fetchUsername()));
   }
 
   login(userLoginDTO: UserLoginDTO) {
-    return this.http.post('/authenticate', userLoginDTO, {
-      withCredentials: true,
-    }).pipe(
-      tap(() => this.fetchUsername()),
-    );
+    return this.http
+      .post('/authenticate', userLoginDTO, {
+        withCredentials: true,
+      })
+      .pipe(tap(() => this.fetchUsername()));
   }
 
   logout() {
-    return this.http.post('/user/logout', {}, { withCredentials: true }).pipe(
-      tap(() => this.usernameSubject.next(null)),
-    );
+    return this.http
+      .post('/user/logout', {}, { withCredentials: true })
+      .pipe(tap(() => this.username.set(null)));
   }
 
   requestRefreshToken() {
@@ -94,8 +94,8 @@ export class AuthService {
 
   private fetchUsername() {
     this.getUsername().subscribe({
-      next: ({ username }) => this.usernameSubject.next(username),
-      error: () => this.usernameSubject.next(null),
+      next: ({ username }) => this.username.set(username),
+      error: () => this.username.set(null),
     });
   }
 }

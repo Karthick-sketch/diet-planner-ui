@@ -21,7 +21,7 @@
         }
         <div>
           <button class="profile-icon" (click)="expandProfile()">
-            {{ initial }}
+            {{ initial() }}
           </button>
           @if (isProfileExpanded) {
             <div class="profile-container">
